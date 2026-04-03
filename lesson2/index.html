@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程学习平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        accent: '#FFD166',
+                        dark: '#292F36',
+                        light: '#F7FFF7',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+                    <span class="text-xl font-bold">课程学习平台</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="font-medium hover:text-primary transition">首页</a>
+                    <a href="#courses" class="font-medium hover:text-primary transition">课程中心</a>
+                    <a href="#features" class="font-medium hover:text-primary transition">平台特色</a>
+                    <a href="#resources" class="font-medium hover:text-primary transition">学习资源</a>
+                    <a href="#contact" class="font-medium hover:text-primary transition">联系我们</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-dark hover:text-primary">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-primary to-secondary text-white py-20 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">探索知识的无限可能</h1>
+            <p class="text-xl md:text-2xl mb-8">专业的在线课程学习平台，助力你的学习成长</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#courses" class="bg-white text-primary font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">浏览课程</a>
+                <a href="#features" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-primary transition">了解平台</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Categories Section -->
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">课程分类</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-line-chart text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">商务数据</h3>
+                    <p class="text-gray-600 text-sm">数据分析、市场调研、商业智能</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="w-16 h-16 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-code text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">编程开发</h3>
+                    <p class="text-gray-600 text-sm">前端开发、后端开发、移动应用</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="w-16 h-16 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-paint-brush text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">设计创意</h3>
+                    <p class="text-gray-600 text-sm">UI设计、平面设计、视频制作</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="w-16 h-16 bg-dark bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-briefcase text-dark text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">职场技能</h3>
+                    <p class="text-gray-600 text-sm">沟通技巧、项目管理、领导力</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Courses Section -->
+    <section id="courses" class="py-16 px-4 bg-gray-100">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">热门课程</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=business%20data%20analysis%20charts%20and%20graphs%20on%20computer%20screen&image_size=landscape_16_9" alt="商务数据分析" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4 bg-primary text-white text-sm font-medium px-3 py-1 rounded-full">
+                            热门
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-primary bg-opacity-10 text-primary text-xs font-medium px-2 py-1 rounded">商务数据</span>
+                            <div class="ml-auto flex items-center">
+                                <i class="fa fa-star text-accent text-xs"></i>
+                                <span class="text-sm ml-1">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">商务数据分析实战</h3>
+                        <p class="text-gray-600 text-sm mb-4">掌握数据分析核心技能，从数据中提取价值，为企业决策提供支持。</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-bold">¥299</span>
+                            <a href="#" class="text-secondary hover:underline text-sm">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=web%20development%20coding%20on%20laptop%20screen&image_size=landscape_16_9" alt="前端开发" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4 bg-secondary text-white text-sm font-medium px-3 py-1 rounded-full">
+                            新课
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-secondary bg-opacity-10 text-secondary text-xs font-medium px-2 py-1 rounded">编程开发</span>
+                            <div class="ml-auto flex items-center">
+                                <i class="fa fa-star text-accent text-xs"></i>
+                                <span class="text-sm ml-1">4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">现代前端开发技术</h3>
+                        <p class="text-gray-600 text-sm mb-4">学习最新的前端技术栈，包括React、Vue等框架，构建现代化的Web应用。</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-bold">¥399</span>
+                            <a href="#" class="text-secondary hover:underline text-sm">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ui%20design%20interface%20creativity%20tools&image_size=landscape_16_9" alt="UI设计" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-accent bg-opacity-10 text-accent text-xs font-medium px-2 py-1 rounded">设计创意</span>
+                            <div class="ml-auto flex items-center">
+                                <i class="fa fa-star text-accent text-xs"></i>
+                                <span class="text-sm ml-1">4.7</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">UI/UX设计原理</h3>
+                        <p class="text-gray-600 text-sm mb-4">学习用户界面和用户体验设计的核心原理，创建美观易用的数字产品。</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-bold">¥349</span>
+                            <a href="#" class="text-secondary hover:underline text-sm">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+                    查看全部课程
+                    <i class="fa fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">平台特色</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-laptop text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">随时随地学习</h3>
+                    <p class="text-gray-600">无论你在哪里，只要有网络，就可以随时访问课程内容，灵活安排学习时间。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="w-16 h-16 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-users text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">专业导师团队</h3>
+                    <p class="text-gray-600">由行业专家和资深教师组成的导师团队，提供专业的指导和支持。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="w-16 h-16 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-certificate text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">认证证书</h3>
+                    <p class="text-gray-600">完成课程学习后，可获得平台颁发的认证证书，提升个人竞争力。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-16 px-4 bg-gray-100">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">学习资源</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-book text-primary text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">学习资料</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fa fa-file-pdf-o text-primary mr-3"></i>
+                            <span>数据分析入门指南</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-file-pdf-o text-primary mr-3"></i>
+                            <span>前端开发最佳实践</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-file-pdf-o text-primary mr-3"></i>
+                            <span>UI设计原则与技巧</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-file-pdf-o text-primary mr-3"></i>
+                            <span>职场沟通技巧</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-video-camera text-secondary text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">视频教程</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fa fa-play-circle text-secondary mr-3"></i>
+                            <span>Excel数据分析技巧</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-play-circle text-secondary mr-3"></i>
+                            <span>HTML/CSS基础教程</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-play-circle text-secondary mr-3"></i>
+                            <span>Photoshop入门到精通</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-play-circle text-secondary mr-3"></i>
+                            <span>项目管理实战</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">学员反馈</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-4">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20asian%20male%20headshot%20smiling&image_size=square" alt="学员头像" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold">张明</h4>
+                            <p class="text-sm text-gray-500">商务数据分析学员</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star text-accent"></i>
+                    </div>
+                    <p class="text-gray-600">课程内容非常实用，老师讲解清晰易懂，通过学习我掌握了数据分析的核心技能，对我的工作帮助很大。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-4">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20asian%20female%20headshot%20smiling&image_size=square" alt="学员头像" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold">李婷</h4>
+                            <p class="text-sm text-gray-500">前端开发学员</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star text-accent"></i>
+                        <i class="fa fa-star-half-o text-accent"></i>
+                    </div>
+                    <p class="text-gray-600">平台的前端开发课程非常全面，从基础到进阶都有详细的讲解，学习后我成功找到了心仪的工作。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-4 bg-dark text-white">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold mb-8 text-center">联系我们</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-6">如果您有任何问题或建议，欢迎随时联系我们，我们将尽快回复您。</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fa fa-map-marker text-primary mr-4"></i>
+                            <span>广东省广州市天河区科韵路</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa fa-phone text-primary mr-4"></i>
+                            <span>400-123-4567</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa fa-envelope text-primary mr-4"></i>
+                            <span>contact@learnplatform.com</span>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex space-x-4">
+                        <a href="#" class="text-white hover:text-primary transition"><i class="fa fa-weixin text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-primary transition"><i class="fa fa-weibo text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-primary transition"><i class="fa fa-qq text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-primary transition"><i class="fa fa-github text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">姓名</label>
+                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">邮箱</label>
+                            <input type="email" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">留言</label>
+                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white font-medium py-2 px-6 rounded-lg hover:bg-opacity-90 transition">发送留言</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 bg-gray-800 text-white">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">课程学习平台</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">专业的在线教育平台，为您提供优质的课程和学习资源。</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-primary transition">首页</a></li>
+                        <li><a href="#courses" class="hover:text-primary transition">课程中心</a></li>
+                        <li><a href="#features" class="hover:text-primary transition">平台特色</a></li>
+                        <li><a href="#resources" class="hover:text-primary transition">学习资源</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">课程分类</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition">商务数据</a></li>
+                        <li><a href="#" class="hover:text-primary transition">编程开发</a></li>
+                        <li><a href="#" class="hover:text-primary transition">设计创意</a></li>
+                        <li><a href="#" class="hover:text-primary transition">职场技能</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">联系我们</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center"><i class="fa fa-phone mr-2"></i> 400-123-4567</li>
+                        <li class="flex items-center"><i class="fa fa-envelope mr-2"></i> contact@learnplatform.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2026 课程学习平台 | 版权所有</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
