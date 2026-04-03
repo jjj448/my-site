@@ -56,9 +56,19 @@
                     <a href="#contact" class="font-medium hover:text-primary transition">联系我们</a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-dark hover:text-primary">
+                    <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
                         <i class="fa fa-bars text-xl"></i>
                     </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="font-medium hover:text-primary transition py-2">首页</a>
+                    <a href="#courses" class="font-medium hover:text-primary transition py-2">课程中心</a>
+                    <a href="#features" class="font-medium hover:text-primary transition py-2">平台特色</a>
+                    <a href="#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
+                    <a href="#contact" class="font-medium hover:text-primary transition py-2">联系我们</a>
                 </div>
             </div>
         </div>
@@ -419,5 +429,41 @@
             </div>
         </div>
     </footer>
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
 </body>
 </html>
