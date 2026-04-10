@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基础课程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#306998',
+                        secondary: '#FFD43B',
+                        accent: '#4CAF50',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .code-block {
+                background-color: #1e293b;
+                color: #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                font-family: 'Fira Code', 'Consolas', monospace;
+                overflow-x: auto;
+            }
+            .code-keyword {
+                color: #ff79c6;
+            }
+            .code-string {
+                color: #f1fa8c;
+            }
+            .code-comment {
+                color: #6272a4;
+            }
+            .code-number {
+                color: #bd93f9;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <i class="fa fa-home text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">Python基础课程</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="font-medium hover:text-primary transition">课程概述</a>
+                    <a href="#chapters" class="font-medium hover:text-primary transition">课程章节</a>
+                    <a href="#resources" class="font-medium hover:text-primary transition">学习资源</a>
+                    <a href="#contact" class="font-medium hover:text-primary transition">联系我们</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#overview" class="font-medium hover:text-primary transition py-2">课程概述</a>
+                    <a href="#chapters" class="font-medium hover:text-primary transition py-2">课程章节</a>
+                    <a href="#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
+                    <a href="#contact" class="font-medium hover:text-primary transition py-2">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">Python基础课程</h1>
+            <p class="text-xl md:text-2xl mb-8">从零开始学习Python编程，掌握数据分析和自动化的基础</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#chapters" class="bg-white text-primary font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">开始学习</a>
+                <a href="#overview" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-primary transition">了解更多</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="overview" class="py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">课程概述</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">零基础入门</h3>
+                    <p class="text-gray-600">不需要任何编程经验，从最基础的概念开始讲解，循序渐进地学习Python编程。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="w-16 h-16 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-line-chart text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">数据处理实战</h3>
+                    <p class="text-gray-600">结合商务数据分析应用场景，学习如何使用Python进行数据处理和分析。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="w-16 h-16 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-graduation-cap text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">项目驱动学习</h3>
+                    <p class="text-gray-600">通过实际项目来巩固所学知识，将理论与实践相结合，快速提升编程技能。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chapters" class="py-16 px-4 bg-gray-100">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">课程章节</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">1</span>
+                            <h3 class="text-xl font-semibold">Python环境搭建</h3>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 mb-4">
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 安装Python解释器</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 配置开发环境</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 编写第一个Python程序</li>
+                        </ul>
+                        <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">2</span>
+                            <h3 class="text-xl font-semibold">基本语法与数据类型</h3>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 mb-4">
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 变量与常量</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 数字与字符串</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 列表、元组与字典</li>
+                        </ul>
+                        <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">3</span>
+                            <h3 class="text-xl font-semibold">控制流程</h3>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 mb-4">
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 条件语句（if/else）</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 循环语句（for/while）</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 异常处理</li>
+                        </ul>
+                        <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">4</span>
+                            <h3 class="text-xl font-semibold">函数与模块</h3>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 mb-4">
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 函数定义与调用</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 参数与返回值</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 模块导入与使用</li>
+                        </ul>
+                        <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">示例代码</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-xl font-semibold mb-4">Hello, Python!</h3>
+                <div class="code-block">
+                    <span class="code-comment"># 这是一个简单的Python程序</span><br>
+                    <span class="code-keyword">print</span>(<span class="code-string">"Hello, Python!"</span>)<br><br>
+                    <span class="code-comment"># 定义变量</span><br>
+                    <span class="code-keyword">name</span> = <span class="code-string">"Python学习者"</span><br>
+                    <span class="code-keyword">age</span> = <span class="code-number">18</span><br><br>
+                    <span class="code-comment"># 条件语句示例</span><br>
+                    <span class="code-keyword">if</span> age >= <span class="code-number">18</span>:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">f"{name}，你已经成年了！"</span>)<br>
+                    <span class="code-keyword">else</span>:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">f"{name}，你还未成年。"</span>)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="py-16 px-4 bg-gray-100">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl font-bold mb-12 text-center">学习资源</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-book text-primary text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">学习资料</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fa fa-file-pdf-o text-primary mr-3"></i>
+                            <span>Python入门教程</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-file-pdf-o text-primary mr-3"></i>
+                            <span>数据结构与算法</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-file-pdf-o text-primary mr-3"></i>
+                            <span>数据分析实战</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-video-camera text-secondary text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">视频教程</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fa fa-play-circle text-secondary mr-3"></i>
+                            <span>Python环境搭建</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-play-circle text-secondary mr-3"></i>
+                            <span>基础语法详解</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-play-circle text-secondary mr-3"></i>
+                            <span>实战项目演示</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 px-4 bg-dark text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-8">开始学习</h2>
+            <p class="mb-8">准备好开始你的Python学习之旅了吗？加入我们，一起探索编程的乐趣！</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#chapters" class="bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">立即开始</a>
+                <a href="../index.html" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">返回首页</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 bg-gray-800 text-white text-center">
+        <div class="container mx-auto max-w-4xl">
+            <p>© 2026 Python基础课程 | 设计与开发</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body>
+</html>
