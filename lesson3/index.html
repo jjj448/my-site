@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python基础课程</title>
+    <title>Python基础课程 - 独立学习站点</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -65,16 +65,15 @@
         <div class="container mx-auto max-w-6xl px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center space-x-2">
-                    <a href="../index.html" class="flex items-center space-x-2">
-                        <i class="fa fa-home text-primary text-2xl"></i>
-                        <span class="text-xl font-bold">Python基础课程</span>
-                    </a>
+                    <i class="fa fa-code text-primary text-2xl"></i>
+                    <span class="text-xl font-bold">Python基础课程</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="font-medium hover:text-primary transition">首页</a>
                     <a href="#overview" class="font-medium hover:text-primary transition">课程概述</a>
                     <a href="#chapters" class="font-medium hover:text-primary transition">课程章节</a>
+                    <a href="#examples" class="font-medium hover:text-primary transition">代码示例</a>
                     <a href="#resources" class="font-medium hover:text-primary transition">学习资源</a>
-                    <a href="#contact" class="font-medium hover:text-primary transition">联系我们</a>
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
@@ -84,22 +83,23 @@
             </div>
             <div id="mobile-menu" class="md:hidden hidden pb-4">
                 <div class="flex flex-col space-y-4">
+                    <a href="#home" class="font-medium hover:text-primary transition py-2">首页</a>
                     <a href="#overview" class="font-medium hover:text-primary transition py-2">课程概述</a>
                     <a href="#chapters" class="font-medium hover:text-primary transition py-2">课程章节</a>
+                    <a href="#examples" class="font-medium hover:text-primary transition py-2">代码示例</a>
                     <a href="#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
-                    <a href="#contact" class="font-medium hover:text-primary transition py-2">联系我们</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
+    <header id="home" class="bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
         <div class="container mx-auto max-w-4xl text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">Python基础课程</h1>
             <p class="text-xl md:text-2xl mb-8">从零开始学习Python编程，掌握数据分析和自动化的基础</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <a href="#chapters" class="bg-white text-primary font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">开始学习</a>
-                <a href="#overview" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-primary transition">了解更多</a>
+                <a href="#overview" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-primary transition">课程概述</a>
             </div>
         </div>
     </header>
@@ -141,12 +141,13 @@
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">1</span>
-                            <h3 class="text-xl font-semibold">Python环境搭建</h3>
+                            <h3 class="text-xl font-semibold">Python基础语法</h3>
                         </div>
                         <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 安装Python解释器</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 配置开发环境</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 编写第一个Python程序</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 变量与数据类型</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 运算符与表达式</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 控制流（if/else, for/while）</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 基本输入输出</li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
@@ -155,12 +156,13 @@
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">2</span>
-                            <h3 class="text-xl font-semibold">基本语法与数据类型</h3>
+                            <h3 class="text-xl font-semibold">数据结构</h3>
                         </div>
                         <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 变量与常量</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 数字与字符串</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 列表、元组与字典</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 列表（List）</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 元组（Tuple）</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 字典（Dictionary）</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 集合（Set）</li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
@@ -169,12 +171,13 @@
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">3</span>
-                            <h3 class="text-xl font-semibold">控制流程</h3>
+                            <h3 class="text-xl font-semibold">函数与模块</h3>
                         </div>
                         <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 条件语句（if/else）</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 循环语句（for/while）</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 异常处理</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 函数定义与调用</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 参数类型（位置、关键字、默认）</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 模块导入与使用</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 包的概念与结构</li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
@@ -183,12 +186,28 @@
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">4</span>
-                            <h3 class="text-xl font-semibold">函数与模块</h3>
+                            <h3 class="text-xl font-semibold">面向对象编程</h3>
                         </div>
                         <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 函数定义与调用</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 参数与返回值</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 模块导入与使用</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 类与对象的概念</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 构造方法与属性</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 继承与多态</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 封装与访问控制</li>
+                        </ul>
+                        <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover md:col-span-2">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">5</span>
+                            <h3 class="text-xl font-semibold">文件操作与异常处理</h3>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 mb-4">
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 文件的打开与关闭</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 文件读写操作</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 异常捕获与处理</li>
+                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 上下文管理器（with语句）</li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
@@ -197,22 +216,85 @@
         </div>
     </section>
 
-    <section class="py-16 px-4">
+    <section id="examples" class="py-16 px-4">
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl font-bold mb-12 text-center">示例代码</h2>
-            <div class="bg-white rounded-lg shadow-lg p-8">
-                <h3 class="text-xl font-semibold mb-4">Hello, Python!</h3>
-                <div class="code-block">
-                    <span class="code-comment"># 这是一个简单的Python程序</span><br>
-                    <span class="code-keyword">print</span>(<span class="code-string">"Hello, Python!"</span>)<br><br>
-                    <span class="code-comment"># 定义变量</span><br>
-                    <span class="code-keyword">name</span> = <span class="code-string">"Python学习者"</span><br>
-                    <span class="code-keyword">age</span> = <span class="code-number">18</span><br><br>
-                    <span class="code-comment"># 条件语句示例</span><br>
-                    <span class="code-keyword">if</span> age >= <span class="code-number">18</span>:<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">f"{name}，你已经成年了！"</span>)<br>
-                    <span class="code-keyword">else</span>:<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">f"{name}，你还未成年。"</span>)
+            <h2 class="text-3xl font-bold mb-12 text-center">代码示例</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">基础语法示例</h3>
+                    <div class="code-block">
+                        <span class="code-comment"># 变量与数据类型</span><br>
+                        <span class="code-keyword">name</span> = <span class="code-string">"Python学习者"</span><br>
+                        <span class="code-keyword">age</span> = <span class="code-number">18</span><br>
+                        <span class="code-keyword">is_student</span> = <span class="code-keyword">True</span><br><br>
+                        <span class="code-comment"># 控制流</span><br>
+                        <span class="code-keyword">if</span> age >= <span class="code-number">18</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">f"{name}，你已经成年了！"</span>)<br>
+                        <span class="code-keyword">else</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">f"{name}，你还未成年。"</span>)
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">数据结构示例</h3>
+                    <div class="code-block">
+                        <span class="code-comment"># 列表操作</span><br>
+                        <span class="code-keyword">fruits</span> = [<span class="code-string">"apple"</span>, <span class="code-string">"banana"</span>, <span class="code-string">"cherry"</span>]<br>
+                        fruits.<span class="code-keyword">append</span>(<span class="code-string">"orange"</span>)<br><br>
+                        <span class="code-comment"># 字典操作</span><br>
+                        <span class="code-keyword">person</span> = {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"name"</span>: <span class="code-string">"张三"</span>,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"age"</span>: <span class="code-number">20</span>,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"grade"</span>: <span class="code-string">"大一"</span><br>
+                        }<br>
+                        <span class="code-keyword">print</span>(person[<span class="code-string">"name"</span>])
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">函数与模块示例</h3>
+                    <div class="code-block">
+                        <span class="code-comment"># 函数定义</span><br>
+                        <span class="code-keyword">def</span> <span class="code-keyword">calculate_area</span>(length, width=<span class="code-number">1</span>):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> length * width<br><br>
+                        <span class="code-comment"># 函数调用</span><br>
+                        <span class="code-keyword">area</span> = calculate_area(<span class="code-number">5</span>, <span class="code-number">3</span>)<br>
+                        <span class="code-keyword">print</span>(<span class="code-string">f"面积: {area}"</span>)<br><br>
+                        <span class="code-comment"># 模块导入</span><br>
+                        <span class="code-keyword">import</span> math
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">面向对象示例</h3>
+                    <div class="code-block">
+                        <span class="code-comment"># 类定义</span><br>
+                        <span class="code-keyword">class</span> <span class="code-keyword">Student</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(<span class="code-keyword">self</span>, name, age):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.name = name
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.age = age
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">greet</span>(<span class="code-keyword">self</span>):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-string">f"你好，我是{self.name}"</span>
+                        <br>
+                        <span class="code-comment"># 创建对象</span><br>
+                        <span class="code-keyword">student</span> = Student(<span class="code-string">"李四"</span>, <span class="code-number">19</span>)
+                        <span class="code-keyword">print</span>(student.greet())
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8 md:col-span-2">
+                    <h3 class="text-xl font-semibold mb-4">文件操作与异常处理示例</h3>
+                    <div class="code-block">
+                        <span class="code-comment"># 文件操作（使用with语句）</span><br>
+                        <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"w"</span>) <span class="code-keyword">as</span> f:
+                        &nbsp;&nbsp;&nbsp;&nbsp;f.<span class="code-keyword">write</span>(<span class="code-string">"Hello, Python!\n"</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;f.<span class="code-keyword">write</span>(<span class="code-string">"Welcome to learning!\n"</span>)
+                        <br>
+                        <span class="code-comment"># 异常处理</span><br>
+                        <span class="code-keyword">try</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> f:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content = f.<span class="code-keyword">read</span>()
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(content)
+                        <span class="code-keyword">except</span> FileNotFoundError:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"文件不存在"</span>)
+                    </div>
                 </div>
             </div>
         </div>
@@ -270,13 +352,13 @@
         </div>
     </section>
 
-    <section id="contact" class="py-16 px-4 bg-dark text-white">
+    <section class="py-16 px-4 bg-dark text-white">
         <div class="container mx-auto max-w-4xl text-center">
             <h2 class="text-3xl font-bold mb-8">开始学习</h2>
             <p class="mb-8">准备好开始你的Python学习之旅了吗？加入我们，一起探索编程的乐趣！</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <a href="#chapters" class="bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">立即开始</a>
-                <a href="../index.html" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">返回首页</a>
+                <a href="#home" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">返回顶部</a>
             </div>
         </div>
     </section>
