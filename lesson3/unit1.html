@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基础课程 - 第一单元：环境搭建与编程初识</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#306998',
+                        secondary: '#FFD43B',
+                        accent: '#4CAF50',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .code-block {
+                background-color: #1e293b;
+                color: #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                font-family: 'Fira Code', 'Consolas', monospace;
+                overflow-x: auto;
+            }
+            .code-keyword {
+                color: #ff79c6;
+            }
+            .code-string {
+                color: #f1fa8c;
+            }
+            .code-comment {
+                color: #6272a4;
+            }
+            .code-number {
+                color: #bd93f9;
+            }
+            .step-number {
+                background-color: #306998;
+                color: white;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">Python基础课程</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition">学习资源</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition py-2">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition py-2">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition py-2">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition py-2">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-primary to-accent text-white py-16 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">第一单元：环境搭建与编程初识</h1>
+            <p class="text-xl md:text-2xl mb-8">约1周学习时间，快速构建开发环境并建立对编程的基本认知</p>
+        </div>
+    </header>
+
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">1.1 Python概述</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-700">Python是一种简单易学、功能强大的编程语言，它在以下领域有着广泛的应用：</p>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li>数据分析与可视化</li>
+                        <li>人工智能与机器学习</li>
+                        <li>Web开发</li>
+                        <li>自动化脚本</li>
+                        <li>科学计算</li>
+                        <li>游戏开发</li>
+                    </ul>
+                    <p class="text-gray-700">Python的优势：</p>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li>语法简洁易懂，适合初学者</li>
+                        <li>丰富的第三方库</li>
+                        <li>跨平台兼容性</li>
+                        <li>强大的社区支持</li>
+                        <li>适合快速开发</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">1.2 Python环境搭建</h2>
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Windows系统安装步骤</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1"></div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 1: 下载Python安装包</h4>
+                                <p class="text-gray-700 mb-2">访问 <a href="https://www.python.org/downloads/" class="text-primary hover:underline">Python官方网站</a>，下载最新版本的Python（推荐3.10+）。</p>
+                                <p class="text-gray-700">在下载页面，点击"Download Python 3.x.x"按钮。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">2</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 2: 运行安装程序</h4>
+                                <p class="text-gray-700 mb-2">双击下载的安装包，在安装界面中，务必勾选"Add Python to PATH"选项。</p>
+                                <p class="text-gray-700">然后点击"Install Now"进行安装。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">3</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 3: 验证安装</h4>
+                                <p class="text-gray-700 mb-2">安装完成后，打开命令提示符（Win+R，输入cmd），输入以下命令：</p>
+                                <div class="code-block">
+                                    python --version
+                                </div>
+                                <p class="text-gray-700 mt-2">如果显示Python版本号，则安装成功。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">macOS系统安装步骤</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">1</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 1: 下载Python安装包</h4>
+                                <p class="text-gray-700 mb-2">访问 <a href="https://www.python.org/downloads/" class="text-primary hover:underline">Python官方网站</a>，下载适合macOS的Python安装包。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">2</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 2: 运行安装程序</h4>
+                                <p class="text-gray-700 mb-2">双击下载的.pkg文件，按照安装向导的提示完成安装。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">3</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 3: 验证安装</h4>
+                                <p class="text-gray-700 mb-2">打开终端（Launchpad → 其他 → 终端），输入以下命令：</p>
+                                <div class="code-block">
+                                    python3 --version
+                                </div>
+                                <p class="text-gray-700 mt-2">如果显示Python版本号，则安装成功。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-xl font-semibold mb-4">Linux系统安装步骤</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">1</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 1: 使用包管理器安装</h4>
+                                <p class="text-gray-700 mb-2">Ubuntu/Debian系统：</p>
+                                <div class="code-block">
+                                    sudo apt update<br>
+                                    sudo apt install python3 python3-pip
+                                </div>
+                                <p class="text-gray-700 mt-4">CentOS/RHEL系统：</p>
+                                <div class="code-block">
+                                    sudo yum install python3 python3-pip
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">2</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 2: 验证安装</h4>
+                                <p class="text-gray-700 mb-2">在终端中输入以下命令：</p>
+                                <div class="code-block">
+                                    python3 --version<br>
+                                    pip3 --version
+                                </div>
+                                <p class="text-gray-700 mt-2">如果显示版本号，则安装成功。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">1.3 开发工具选择</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="border rounded-lg p-4 card-hover">
+                        <h3 class="text-xl font-semibold mb-3 text-primary">Visual Studio Code (VS Code)</h3>
+                        <p class="text-gray-700 mb-3">推荐的首选开发工具，轻量且功能强大。</p>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>跨平台支持</li>
+                            <li>丰富的扩展插件</li>
+                            <li>集成终端</li>
+                            <li>代码智能提示</li>
+                        </ul>
+                        <p class="mt-4 text-sm text-gray-600">下载地址：<a href="https://code.visualstudio.com/" class="text-primary hover:underline">https://code.visualstudio.com/</a></p>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4 card-hover">
+                        <h3 class="text-xl font-semibold mb-3 text-primary">PyCharm</h3>
+                        <p class="text-gray-700 mb-3">专业的Python IDE，功能全面。</p>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>专业的Python支持</li>
+                            <li>强大的代码分析</li>
+                            <li>内置调试工具</li>
+                            <li>项目管理功能</li>
+                        </ul>
+                        <p class="mt-4 text-sm text-gray-600">下载地址：<a href="https://www.jetbrains.com/pycharm/" class="text-primary hover:underline">https://www.jetbrains.com/pycharm/</a></p>
+                    </div>
+                </div>
+
+                <div class="mt-8 border rounded-lg p-4 card-hover">
+                    <h3 class="text-xl font-semibold mb-3 text-primary">Jupyter Notebook</h3>
+                    <p class="text-gray-700 mb-3">交互式数据分析工具，适合数据科学学习。</p>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li>支持代码、文本、图表混合</li>
+                        <li>适合数据分析和可视化</li>
+                        <li>可以导出为多种格式</li>
+                    </ul>
+                    <p class="mt-4 text-sm text-gray-600">安装命令：<code class="bg-gray-100 px-2 py-1 rounded">pip install jupyter</code></p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">1.4 第一个Python程序</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">使用命令行运行</h3>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">1</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 1: 创建Python文件</h4>
+                                <p class="text-gray-700 mb-2">创建一个名为 <code class="bg-gray-100 px-2 py-1 rounded">hello.py</code> 的文件，内容如下：</p>
+                                <div class="code-block">
+                                    <span class="code-comment"># 第一个Python程序</span><br>
+                                    <span class="code-keyword">print</span>(<span class="code-string">"Hello, World!"</span>)<br>
+                                    <span class="code-keyword">print</span>(<span class="code-string">"欢迎开始Python学习之旅！"</span>)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4 mt-1">2</div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Step 2: 运行程序</h4>
+                                <p class="text-gray-700 mb-2">在命令行中，进入文件所在目录，输入以下命令：</p>
+                                <div class="code-block">
+                                    # Windows系统<br>
+                                    python hello.py<br><br>
+                                    # macOS/Linux系统<br>
+                                    python3 hello.py
+                                </div>
+                                <p class="text-gray-700 mt-2">运行结果：</p>
+                                <div class="bg-gray-100 p-4 rounded">
+                                    Hello, World!<br>
+                                    欢迎开始Python学习之旅！
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-xl font-semibold mb-4">使用Python交互式解释器</h3>
+                    <p class="text-gray-700 mb-4">你也可以直接在Python交互式解释器中运行代码：</p>
+                    <div class="code-block">
+                        >>> <span class="code-keyword">print</span>(<span class="code-string">"Hello, Python!"</span>)<br>
+                        Hello, Python!
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">1.5 利用AI编程助手</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">在AI时代，我们可以利用AI编程助手来辅助学习和调试代码。以下是一些常用的AI编程助手：</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">DeepSeek</h3>
+                            <p class="text-gray-700 mb-3">专为编程设计的AI助手。</p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>理解代码上下文</li>
+                                <li>提供代码建议</li>
+                                <li>帮助调试错误</li>
+                                <li>生成代码注释</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">Cursor</h3>
+                            <p class="text-gray-700 mb-3">集成在编辑器中的AI编程工具。</p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>实时代码建议</li>
+                                <li>智能代码补全</li>
+                                <li>代码重构建议</li>
+                                <li>文档生成</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">如何有效使用AI编程助手</h3>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>清晰描述你的编程任务</li>
+                            <li>提供足够的上下文信息</li>
+                            <li>验证AI生成的代码</li>
+                            <li>理解代码的工作原理</li>
+                            <li>不要盲目复制粘贴</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">示例：向AI助手提问</h3>
+                        <div class="bg-gray-100 p-4 rounded mb-4">
+                            <strong>问题：</strong>写一个Python函数，计算斐波那契数列的第n项
+                        </div>
+                        <div class="code-block">
+                            <span class="code-keyword">def</span> <span class="code-keyword">fibonacci</span>(n):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> n <= <span class="code-number">0</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-number">0</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">elif</span> n == <span class="code-number">1</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-number">1</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> fibonacci(n-<span class="code-number">1</span>) + fibonacci(n-<span class="code-number">2</span>)
+                            
+                            <span class="code-comment"># 测试函数</span>
+                            <span class="code-keyword">print</span>(fibonacci(<span class="code-number">10</span>)) <span class="code-comment"># 输出：55</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-dark text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-8">单元小结</h2>
+            <p class="mb-8">通过本单元的学习，你已经完成了Python环境的搭建，并编写了第一个Python程序。这是你Python学习之旅的第一步，也是非常重要的一步。</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="index.html" class="bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">返回学习大纲</a>
+                <a href="#" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">下一单元</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 bg-gray-800 text-white text-center">
+        <div class="container mx-auto max-w-4xl">
+            <p>© 2026 Python基础课程 | 设计与开发</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body>
+</html>
