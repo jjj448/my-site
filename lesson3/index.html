@@ -135,79 +135,120 @@
 
     <section id="chapters" class="py-16 px-4 bg-gray-100">
         <div class="container mx-auto max-w-6xl">
-            <h2 class="text-3xl font-bold mb-12 text-center">课程章节</h2>
-            <div class="grid md:grid-cols-2 gap-8">
+            <h2 class="text-3xl font-bold mb-12 text-center">Python基础课程大纲（AI时代精简高效版）</h2>
+            <div class="grid md:grid-cols-1 gap-8">
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">1</span>
-                            <h3 class="text-xl font-semibold">Python基础语法</h3>
+                        <div class="flex items-center mb-6">
+                            <span class="bg-primary text-white font-bold w-12 h-12 rounded-full flex items-center justify-center mr-4">1</span>
+                            <h3 class="text-2xl font-semibold">环境搭建与编程初识（约1周）</h3>
                         </div>
-                        <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 变量与数据类型</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 运算符与表达式</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 控制流（if/else, for/while）</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 基本输入输出</li>
+                        <p class="text-gray-700 mb-6">此阶段的目标是快速构建开发环境并建立对编程的基本认知。</p>
+                        <ul class="space-y-3 text-gray-600 mb-4">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>Python概述与环境搭建：</strong>了解Python在数据分析、人工智能等领域的核心优势。掌握在不同操作系统上安装Python解释器（推荐Python 3.10+）的方法，并正确配置环境变量。选择开发工具（VS Code或PyCharm），了解Jupyter Notebook的用途。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>第一个程序与基础工具：</strong>编写并运行经典的“Hello, World!”程序。学习使用命令行运行Python脚本，并初步了解如何利用AI编程助手（如DeepSeek、Cursor）辅助学习和调试代码。</span>
+                            </li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
                 </div>
+                
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">2</span>
-                            <h3 class="text-xl font-semibold">数据结构</h3>
+                        <div class="flex items-center mb-6">
+                            <span class="bg-primary text-white font-bold w-12 h-12 rounded-full flex items-center justify-center mr-4">2</span>
+                            <h3 class="text-2xl font-semibold">核心语法与逻辑构建（约2-3周）</h3>
                         </div>
-                        <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 列表（List）</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 元组（Tuple）</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 字典（Dictionary）</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 集合（Set）</li>
+                        <p class="text-gray-700 mb-6">这是课程的重心，目标是掌握与计算机沟通的基本逻辑骨架，而非记忆所有语法细节。</p>
+                        <ul class="space-y-3 text-gray-600 mb-4">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>变量、数据类型与运算符：</strong>理解变量作为数据“标签”的动态类型特性。掌握整数、浮点数、字符串、布尔值这四种最基础的数据类型及其转换。熟练使用算术、比较、逻辑和赋值运算符。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>流程控制语句：</strong>精通条件判断（if-elif-else）和循环（for/while），理解它们如何让程序根据不同条件决策并重复执行任务。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>核心数据结构（聚焦列表与字典）：</strong>深入讲解列表（List）和字典（Dictionary）的创建、增删改查、遍历及常用方法，理解它们作为存储和整理数据的核心作用。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>函数与模块化思维：</strong>学习如何将重复代码封装成可复用的“技能包”（函数），理解参数传递和返回值。掌握使用import语句导入标准库和第三方模块的基本方法。</span>
+                            </li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
                 </div>
+                
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">3</span>
-                            <h3 class="text-xl font-semibold">函数与模块</h3>
+                        <div class="flex items-center mb-6">
+                            <span class="bg-primary text-white font-bold w-12 h-12 rounded-full flex items-center justify-center mr-4">3</span>
+                            <h3 class="text-2xl font-semibold">衔接实践的关键技能（约1-2周）</h3>
                         </div>
-                        <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 函数定义与调用</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 参数类型（位置、关键字、默认）</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 模块导入与使用</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 包的概念与结构</li>
+                        <p class="text-gray-700 mb-6">此阶段旨在快速建立将编程能力应用于实际场景（尤其是数据处理）的桥梁。</p>
+                        <ul class="space-y-3 text-gray-600 mb-4">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>文件操作：</strong>重点学习读写文本文件（如.txt, .csv）。掌握使用open()、read()、write()等函数进行文件操作，并理解文件路径的概念。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>面向对象编程（OOP）基础概念：</strong>理解类（Class）和对象（Object）的关系，以及构造函数（__init__方法）的作用。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>异常处理：</strong>学习使用try...except...语句捕获和处理程序运行中的错误，使程序更加健壮。</span>
+                            </li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
                 </div>
+                
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">4</span>
-                            <h3 class="text-xl font-semibold">面向对象编程</h3>
+                        <div class="flex items-center mb-6">
+                            <span class="bg-primary text-white font-bold w-12 h-12 rounded-full flex items-center justify-center mr-4">4</span>
+                            <h3 class="text-2xl font-semibold">面向数据分析的库认知</h3>
                         </div>
-                        <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 类与对象的概念</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 构造方法与属性</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 继承与多态</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 封装与访问控制</li>
+                        <p class="text-gray-700 mb-6">在掌握核心语法后，应快速建立对“数据科学核心库”的认知，知道它们的存在和用途，为后续专业课程铺路。</p>
+                        <ul class="space-y-3 text-gray-600 mb-4">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>Pandas概念导入：</strong>了解DataFrame这个核心数据结构，知道它能像超级电子表格一样处理数据。学会使用pd.read_csv()读取数据、df.head()查看数据，并了解数据清洗的基本概念。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>数据可视化启蒙：</strong>了解使用Matplotlib绘制简单图表（折线图、柱状图）的方法。可视化是理解数据规律、呈现分析结果的核心手段。</span>
+                            </li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover md:col-span-2">
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary text-white font-bold w-10 h-10 rounded-full flex items-center justify-center mr-4">5</span>
-                            <h3 class="text-xl font-semibold">文件操作与异常处理</h3>
+                        <div class="flex items-center mb-6">
+                            <span class="bg-primary text-white font-bold w-12 h-12 rounded-full flex items-center justify-center mr-4">5</span>
+                            <h3 class="text-2xl font-semibold">新时代核心思维——AI协作编程</h3>
                         </div>
-                        <ul class="space-y-2 text-gray-600 mb-4">
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 文件的打开与关闭</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 文件读写操作</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 异常捕获与处理</li>
-                            <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 上下文管理器（with语句）</li>
+                        <p class="text-gray-700 mb-6">在AI编程助手成熟的背景下，这应成为贯穿学习过程的思维训练。</p>
+                        <ul class="space-y-3 text-gray-600 mb-4">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>提示工程（Prompt Engineering）基础：</strong>学习如何向AI助手清晰、结构化地描述编程任务，这能极大提升学习效率和问题解决能力。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mr-2 mt-1"></i>
+                                <span><strong>代码理解与调试：</strong>重点培养阅读、理解和验证AI生成代码的能力，学会使用打印输出、简单调试工具等方法验证逻辑，而非仅仅复制粘贴。</span>
+                            </li>
                         </ul>
                         <a href="#" class="text-primary font-medium hover:underline">开始学习 →</a>
                     </div>
