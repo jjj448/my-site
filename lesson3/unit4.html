@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基础课程 - 第四单元：面向对象编程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#306998',
+                        secondary: '#FFD43B',
+                        accent: '#4CAF50',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .code-block {
+                background-color: #1e293b;
+                color: #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                font-family: 'Fira Code', 'Consolas', monospace;
+                overflow-x: auto;
+            }
+            .code-keyword {
+                color: #ff79c6;
+            }
+            .code-string {
+                color: #f1fa8c;
+            }
+            .code-comment {
+                color: #6272a4;
+            }
+            .code-number {
+                color: #bd93f9;
+            }
+            .step-number {
+                background-color: #306998;
+                color: white;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">Python基础课程</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition">学习资源</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition py-2">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition py-2">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition py-2">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition py-2">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-primary to-accent text-white py-16 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">第四单元：面向对象编程</h1>
+            <p class="text-xl md:text-2xl mb-8">约2周学习时间，掌握面向对象编程的核心概念和实践</p>
+        </div>
+    </header>
+
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">4.1 面向对象编程概述</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-700">面向对象编程（OOP）是一种编程范式，它将数据和操作数据的方法组织成对象。在Python中，几乎所有东西都是对象。</p>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">面向对象编程的核心概念</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">类 (Class)</h4>
+                                <p class="text-gray-700">类是对象的蓝图或模板，定义了对象的属性和方法。</p>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">对象 (Object)</h4>
+                                <p class="text-gray-700">对象是类的实例，具有类定义的属性和方法。</p>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">属性 (Attribute)</h4>
+                                <p class="text-gray-700">属性是对象的特征或数据。</p>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">方法 (Method)</h4>
+                                <p class="text-gray-700">方法是对象的行为或操作。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">4.2 类的定义与使用</h2>
+                
+                <div class="space-y-6">
+                    <h3 class="text-xl font-semibold mb-4">定义类</h3>
+                    <div class="code-block">
+                        <span class="code-keyword">class</span> ClassName:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, parameters):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 初始化方法</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.attribute = value
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> method(self, parameters):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 方法定义</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-4">创建对象</h3>
+                    <div class="code-block">
+                        <span class="code-comment"># 定义一个Person类</span><br>
+                        <span class="code-keyword">class</span> Person:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, name, age):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.age = age
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> greet(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"Hello, my name is {self.name} and I am {self.age} years old.")
+                        <br>
+                        <span class="code-comment"># 创建对象</span><br>
+                        person1 = Person(<span class="code-string">"Alice"</span>, <span class="code-number">25</span>)
+                        person2 = Person(<span class="code-string">"Bob"</span>, <span class="code-number">30</span>)
+                        <br>
+                        <span class="code-comment"># 访问属性</span><br>
+                        <span class="code-keyword">print</span>(person1.name)  <span class="code-comment"># Alice</span>
+                        <span class="code-keyword">print</span>(person2.age)   <span class="code-comment"># 30</span>
+                        <br>
+                        <span class="code-comment"># 调用方法</span><br>
+                        person1.greet()  <span class="code-comment"># Hello, my name is Alice and I am 25 years old.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">4.3 继承</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">继承是面向对象编程的重要特性，它允许我们创建一个新类，继承现有类的属性和方法。</p>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># 定义父类</span><br>
+                        <span class="code-keyword">class</span> Animal:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, name):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> speak(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"{self.name} makes a sound.")
+                        <br>
+                        <span class="code-comment"># 定义子类，继承Animal</span><br>
+                        <span class="code-keyword">class</span> Dog(Animal):
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> speak(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"{self.name} barks.")
+                        <br>
+                        <span class="code-keyword">class</span> Cat(Animal):
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> speak(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"{self.name} meows.")
+                        <br>
+                        <span class="code-comment"># 创建对象</span><br>
+                        animal = Animal(<span class="code-string">"Generic animal"</span>)
+                        dog = Dog(<span class="code-string">"Rex"</span>)
+                        cat = Cat(<span class="code-string">"Felix"</span>)
+                        <br>
+                        <span class="code-comment"># 调用方法</span><br>
+                        animal.speak()  <span class="code-comment"># Generic animal makes a sound.</span>
+                        dog.speak()     <span class="code-comment"># Rex barks.</span>
+                        cat.speak()     <span class="code-comment"># Felix meows.</span>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">super() 函数</h3>
+                        <p class="text-gray-700 mb-3">super() 函数用于调用父类的方法，通常用于初始化方法中。</p>
+                        <div class="code-block">
+                            <span class="code-keyword">class</span> Person:
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, name, age):
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.age = age
+                            <br>
+                            <span class="code-keyword">class</span> Student(Person):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, name, age, student_id):
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">super</span>().<span class="code-keyword">__init__</span>(name, age)  <span class="code-comment"># 调用父类的初始化方法</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.student_id = student_id
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> get_info(self):
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> f"{self.name}, {self.age} years old, ID: {self.student_id}"
+                            <br>
+                            student = Student(<span class="code-string">"Alice"</span>, <span class="code-number">20</span>, <span class="code-string">"S12345"</span>)
+                            <span class="code-keyword">print</span>(student.get_info())  <span class="code-comment"># Alice, 20 years old, ID: S12345</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">4.4 多态</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">多态是指不同类的对象可以响应相同的方法调用，但产生不同的行为。</p>
+                    
+                    <div class="code-block">
+                        <span class="code-keyword">class</span> Shape:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> area(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">pass</span>
+                        <br>
+                        <span class="code-keyword">class</span> Rectangle(Shape):
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, width, height):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.width = width
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.height = height
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> area(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> self.width * self.height
+                        <br>
+                        <span class="code-keyword">class</span> Circle(Shape):
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, radius):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.radius = radius
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> area(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">import</span> math
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> math.pi * self.radius ** <span class="code-number">2</span>
+                        <br>
+                        <span class="code-comment"># 多态示例</span><br>
+                        shapes = [Rectangle(<span class="code-number">4</span>, <span class="code-number">5</span>), Circle(<span class="code-number">3</span>)]
+                        <br>
+                        <span class="code-keyword">for</span> shape <span class="code-keyword">in</span> shapes:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"Area: {shape.area()}")
+                        <br>
+                        <span class="code-comment"># 输出：</span>
+                        <span class="code-comment"># Area: 20</span>
+                        <span class="code-comment"># Area: 28.274333882308138</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">4.5 封装</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">封装是指将数据和操作数据的方法捆绑在一起，对外部隐藏实现细节。在Python中，我们使用下划线来表示私有属性和方法。</p>
+                    
+                    <div class="code-block">
+                        <span class="code-keyword">class</span> Person:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, name, age):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name  <span class="code-comment"># 公共属性</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._age = age   <span class="code-comment"># 受保护属性</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.__salary = <span class="code-number">5000</span>  <span class="code-comment"># 私有属性</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> get_age(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> self._age
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> set_age(self, age):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> age > <span class="code-number">0</span> <span class="code-keyword">and</span> age < <span class="code-number">150</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._age = age
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"Invalid age"</span>)
+                        <br>
+                        person = Person(<span class="code-string">"Alice"</span>, <span class="code-number">25</span>)
+                        <br>
+                        <span class="code-comment"># 访问公共属性</span><br>
+                        <span class="code-keyword">print</span>(person.name)  <span class="code-comment"># Alice</span>
+                        <br>
+                        <span class="code-comment"># 访问受保护属性（不推荐直接访问）</span><br>
+                        <span class="code-keyword">print</span>(person._age)  <span class="code-comment"># 25</span>
+                        <br>
+                        <span class="code-comment"># 尝试访问私有属性（会失败）</span><br>
+                        <span class="code-comment"># print(person.__salary)  # 错误</span>
+                        <br>
+                        <span class="code-comment"># 使用方法访问属性</span><br>
+                        <span class="code-keyword">print</span>(person.get_age())  <span class="code-comment"># 25</span>
+                        person.set_age(<span class="code-number">30</span>)
+                        <span class="code-keyword">print</span>(person.get_age())  <span class="code-comment"># 30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-dark text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-8">单元小结</h2>
+            <p class="mb-8">通过本单元的学习，你已经掌握了面向对象编程的核心概念，包括类的定义与使用、继承、多态和封装。面向对象编程是一种强大的编程范式，它可以帮助我们更好地组织和管理代码，提高代码的可复用性和可维护性。</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="unit3.html" class="bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">上一单元</a>
+                <a href="unit5.html" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">下一单元</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 bg-gray-800 text-white text-center">
+        <div class="container mx-auto max-w-4xl">
+            <p>© 2026 Python基础课程 | 设计与开发</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body>
+</html>

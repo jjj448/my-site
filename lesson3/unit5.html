@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基础课程 - 第五单元：文件操作与异常处理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#306998',
+                        secondary: '#FFD43B',
+                        accent: '#4CAF50',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .code-block {
+                background-color: #1e293b;
+                color: #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                font-family: 'Fira Code', 'Consolas', monospace;
+                overflow-x: auto;
+            }
+            .code-keyword {
+                color: #ff79c6;
+            }
+            .code-string {
+                color: #f1fa8c;
+            }
+            .code-comment {
+                color: #6272a4;
+            }
+            .code-number {
+                color: #bd93f9;
+            }
+            .step-number {
+                background-color: #306998;
+                color: white;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">Python基础课程</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition">学习资源</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition py-2">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition py-2">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition py-2">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition py-2">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-primary to-accent text-white py-16 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">第五单元：文件操作与异常处理</h1>
+            <p class="text-xl md:text-2xl mb-8">约2周学习时间，掌握文件操作和异常处理的核心技能</p>
+        </div>
+    </header>
+
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">5.1 文件操作基础</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-700">文件操作是编程中常见的任务，Python提供了简单而强大的文件操作功能。</p>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">打开文件</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 打开文件</span><br>
+                            <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> f:
+                            &nbsp;&nbsp;&nbsp;&nbsp;content = f.read()
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(content)
+                        </div>
+                        <p class="mt-4 text-gray-700">使用 <code class="bg-gray-100 px-2 py-1 rounded">with</code> 语句可以自动关闭文件，不需要手动调用 <code class="bg-gray-100 px-2 py-1 rounded">close()</code> 方法。</p>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">文件打开模式</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">读取模式</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">r</code>: 只读模式（默认）</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">rb</code>: 二进制只读模式</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">r+</code>: 读写模式</li>
+                                </ul>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">写入模式</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">w</code>: 写入模式（覆盖现有文件）</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">wb</code>: 二进制写入模式</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">w+</code>: 读写模式（覆盖现有文件）</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">a</code>: 追加模式（在文件末尾添加）</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">a+</code>: 读写模式（在文件末尾添加）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">5.2 文件读写操作</h2>
+                
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">读取文件</h3>
+                            <div class="code-block">
+                                <span class="code-comment"># 读取整个文件</span><br>
+                                <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> f:
+                                &nbsp;&nbsp;&nbsp;&nbsp;content = f.read()
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(content)
+                                <br>
+                                <span class="code-comment"># 逐行读取</span><br>
+                                <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> f:
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> line <span class="code-keyword">in</span> f:
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(line.strip())
+                                <br>
+                                <span class="code-comment"># 读取所有行到列表</span><br>
+                                <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> f:
+                                &nbsp;&nbsp;&nbsp;&nbsp;lines = f.readlines()
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(lines)
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">写入文件</h3>
+                            <div class="code-block">
+                                <span class="code-comment"># 写入文件（覆盖）</span><br>
+                                <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"w"</span>) <span class="code-keyword">as</span> f:
+                                &nbsp;&nbsp;&nbsp;&nbsp;f.write(<span class="code-string">"Hello, World!\n"</span>)
+                                &nbsp;&nbsp;&nbsp;&nbsp;f.write(<span class="code-string">"Welcome to Python!\n"</span>)
+                                <br>
+                                <span class="code-comment"># 追加到文件</span><br>
+                                <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"a"</span>) <span class="code-keyword">as</span> f:
+                                &nbsp;&nbsp;&nbsp;&nbsp;f.write(<span class="code-string">"This is an additional line.\n"</span>)
+                                <br>
+                                <span class="code-comment"># 写入多行</span><br>
+                                lines = [<span class="code-string">"Line 1\n"</span>, <span class="code-string">"Line 2\n"</span>, <span class="code-string">"Line 3\n"</span>]
+                                <span class="code-keyword">with</span> <span class="code-keyword">open</span>(<span class="code-string">"example.txt"</span>, <span class="code-string">"w"</span>) <span class="code-keyword">as</span> f:
+                                &nbsp;&nbsp;&nbsp;&nbsp;f.writelines(lines)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">5.3 异常处理</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">异常是程序运行过程中发生的错误，Python提供了异常处理机制来捕获和处理这些错误。</p>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># 基本异常处理</span><br>
+                        <span class="code-keyword">try</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 可能引发异常的代码</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;result = <span class="code-number">10</span> / <span class="code-number">0</span>
+                        <span class="code-keyword">except</span> ZeroDivisionError:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 处理特定异常</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"除数不能为零！"</span>)
+                        <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 处理其他所有异常</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"发生错误: {e}")
+                        <span class="code-keyword">else</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 没有异常时执行</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"计算成功！"</span>)
+                        <span class="code-keyword">finally</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 无论是否有异常都会执行</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"执行完毕"</span>)
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">常见异常类型</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border rounded-lg p-4 card-hover">
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">SyntaxError</code>: 语法错误</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">NameError</code>: 变量未定义</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">TypeError</code>: 类型错误</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">ZeroDivisionError</code>: 除数为零</li>
+                                </ul>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">IndexError</code>: 索引越界</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">KeyError</code>: 字典键不存在</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">FileNotFoundError</code>: 文件未找到</li>
+                                    <li><code class="bg-gray-100 px-2 py-1 rounded">ValueError</code>: 值错误</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">5.4 综合应用：文件处理与异常处理</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">下面是一个综合示例，展示如何结合文件操作和异常处理来处理实际问题。</p>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># 示例：读取和处理文件</span><br>
+                        <span class="code-keyword">def</span> process_file(file_path):
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">try</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">with</span> <span class="code-keyword">open</span>(file_path, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> f:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines = f.readlines()
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"文件共有 {len(lines)} 行")
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> i, line <span class="code-keyword">in</span> <span class="code-keyword">enumerate</span>(lines, <span class="code-number">1</span>):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"第 {i} 行: {line.strip()}")
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">except</span> FileNotFoundError:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"错误：文件 '{file_path}' 不存在")
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"处理文件时发生错误: {e}")
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>("文件处理成功")
+                        <br>
+                        <span class="code-comment"># 调用函数</span><br>
+                        process_file(<span class="code-string">"example.txt"</span>)
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">示例：CSV文件处理</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 导入CSV模块</span><br>
+                            <span class="code-keyword">import</span> csv
+                            <br>
+                            <span class="code-comment"># 读取CSV文件</span><br>
+                            <span class="code-keyword">def</span> read_csv(file_path):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">try</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">with</span> <span class="code-keyword">open</span>(file_path, <span class="code-string">"r"</span>, encoding=<span class="code-string">"utf-8"</span>) <span class="code-keyword">as</span> f:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reader = csv.DictReader(f)
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> row <span class="code-keyword">in</span> reader:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(row)
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"读取CSV文件时发生错误: {e}")
+                            <br>
+                            <span class="code-comment"># 写入CSV文件</span><br>
+                            <span class="code-keyword">def</span> write_csv(file_path, data):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">try</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">with</span> <span class="code-keyword">open</span>(file_path, <span class="code-string">"w"</span>, newline=<span class="code-string">""</span>, encoding=<span class="code-string">"utf-8"</span>) <span class="code-keyword">as</span> f:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldnames = [<span class="code-string">"name"</span>, <span class="code-string">"age"</span>, <span class="code-string">"city"</span>]
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer = csv.DictWriter(f, fieldnames=fieldnames)
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer.writeheader()
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> row <span class="code-keyword">in</span> data:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer.writerow(row)
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"写入CSV文件时发生错误: {e}")
+                            <br>
+                            <span class="code-comment"># 测试</span><br>
+                            data = [
+                            &nbsp;&nbsp;&nbsp;&nbsp;{<span class="code-string">"name"</span>: <span class="code-string">"Alice"</span>, <span class="code-string">"age"</span>: <span class="code-string">"25"</span>, <span class="code-string">"city"</span>: <span class="code-string">"New York"</span>},
+                            &nbsp;&nbsp;&nbsp;&nbsp;{<span class="code-string">"name"</span>: <span class="code-string">"Bob"</span>, <span class="code-string">"age"</span>: <span class="code-string">"30"</span>, <span class="code-string">"city"</span>: <span class="code-string">"London"</span>},
+                            &nbsp;&nbsp;&nbsp;&nbsp;{<span class="code-string">"name"</span>: <span class="code-string">"Charlie"</span>, <span class="code-string">"age"</span>: <span class="code-string">"35"</span>, <span class="code-string">"city"</span>: <span class="code-string">"Paris"</span>}
+                            ]
+                            <br>
+                            write_csv(<span class="code-string">"people.csv"</span>, data)
+                            read_csv(<span class="code-string">"people.csv"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">5.5 实践项目：学生管理系统</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">下面是一个综合实践项目，结合文件操作和异常处理，实现一个简单的学生管理系统。</p>
+                    
+                    <div class="code-block">
+                        <span class="code-keyword">class</span> Student:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, id, name, age, grade):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.id = id
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.age = age
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.grade = grade
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__str__</span>(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> f"ID: {self.id}, Name: {self.name}, Age: {self.age}, Grade: {self.grade}"
+                        <br>
+                        <span class="code-keyword">class</span> StudentManager:
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-keyword">__init__</span>(self, file_path):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.file_path = file_path
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.students = []
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.load_students()
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> load_students(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">try</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">with</span> <span class="code-keyword">open</span>(self.file_path, <span class="code-string">"r"</span>, encoding=<span class="code-string">"utf-8"</span>) <span class="code-keyword">as</span> f:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> line <span class="code-keyword">in</span> f:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts = line.strip().split(<span class="code-string">","</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> <span class="code-keyword">len</span>(parts) == <span class="code-number">4</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;student = Student(parts[<span class="code-number">0</span>], parts[<span class="code-number">1</span>], int(parts[<span class="code-number">2</span>]), parts[<span class="code-number">3</span>])
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.students.append(student)
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">except</span> FileNotFoundError:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"文件 '{self.file_path}' 不存在，将创建新文件")
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"加载学生数据时发生错误: {e}")
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> save_students(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">try</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">with</span> <span class="code-keyword">open</span>(self.file_path, <span class="code-string">"w"</span>, encoding=<span class="code-string">"utf-8"</span>) <span class="code-keyword">as</span> f:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> student <span class="code-keyword">in</span> self.students:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.write(f"{student.id},{student.name},{student.age},{student.grade}\n")
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"保存学生数据时发生错误: {e}")
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> add_student(self, student):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.students.append(student)
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.save_students()
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> remove_student(self, student_id):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> i, student <span class="code-keyword">in</span> <span class="code-keyword">enumerate</span>(self.students):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> student.id == student_id:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;del self.students[i]
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.save_students()
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">True</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">False</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> list_students(self):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> <span class="code-keyword">not</span> self.students:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"没有学生数据"</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> student <span class="code-keyword">in</span> self.students:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(student)
+                        <br>
+                        <span class="code-comment"># 测试学生管理系统</span><br>
+                        <span class="code-keyword">if</span> __name__ == <span class="code-string">"__main__"</span>:
+                        &nbsp;&nbsp;&nbsp;&nbsp;manager = StudentManager(<span class="code-string">"students.txt"</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 添加学生</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;student1 = Student(<span class="code-string">"S001"</span>, <span class="code-string">"Alice"</span>, <span class="code-number">18</span>, <span class="code-string">"A"</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;student2 = Student(<span class="code-string">"S002"</span>, <span class="code-string">"Bob"</span>, <span class="code-number">19</span>, <span class="code-string">"B"</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;manager.add_student(student1)
+                        &nbsp;&nbsp;&nbsp;&nbsp;manager.add_student(student2)
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 列出学生</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"所有学生："</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;manager.list_students()
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 删除学生</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;manager.remove_student(<span class="code-string">"S001"</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 再次列出学生</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"删除后的学生："</span>)
+                        &nbsp;&nbsp;&nbsp;&nbsp;manager.list_students()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-dark text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-8">单元小结</h2>
+            <p class="mb-8">通过本单元的学习，你已经掌握了文件操作和异常处理的核心技能。文件操作让你能够读写文件，处理数据持久化；异常处理让你的程序更加健壮，能够优雅地处理运行时错误。这些技能对于实际编程非常重要，是构建可靠应用程序的基础。</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="unit4.html" class="bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">上一单元</a>
+                <a href="index.html" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">返回学习大纲</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 bg-gray-800 text-white text-center">
+        <div class="container mx-auto max-w-4xl">
+            <p>© 2026 Python基础课程 | 设计与开发</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body>
+</html>

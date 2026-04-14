@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基础课程 - 第三单元：函数与模块</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#306998',
+                        secondary: '#FFD43B',
+                        accent: '#4CAF50',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .code-block {
+                background-color: #1e293b;
+                color: #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                font-family: 'Fira Code', 'Consolas', monospace;
+                overflow-x: auto;
+            }
+            .code-keyword {
+                color: #ff79c6;
+            }
+            .code-string {
+                color: #f1fa8c;
+            }
+            .code-comment {
+                color: #6272a4;
+            }
+            .code-number {
+                color: #bd93f9;
+            }
+            .step-number {
+                background-color: #306998;
+                color: white;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">Python基础课程</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition">学习资源</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition py-2">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition py-2">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition py-2">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition py-2">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-primary to-accent text-white py-16 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">第三单元：函数与模块</h1>
+            <p class="text-xl md:text-2xl mb-8">约2周学习时间，掌握函数定义、调用和模块的使用</p>
+        </div>
+    </header>
+
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">3.1 函数的定义与调用</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-700">函数是组织好的、可重复使用的、用来实现特定功能的代码块。</p>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">函数定义</h3>
+                        <div class="code-block">
+                            <span class="code-keyword">def</span> function_name(parameters):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">"""文档字符串"""</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;function_body
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> value
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">函数调用</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 定义函数</span><br>
+                            <span class="code-keyword">def</span> greet(name):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">"""向某人问好"""
+                            &nbsp;&nbsp;&nbsp;&nbsp;print(f"Hello, {name}!")
+                            
+                            <span class="code-comment"># 调用函数</span><br>
+                            greet(<span class="code-string">"Alice"</span>)  <span class="code-comment"># 输出: Hello, Alice!</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">函数参数</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">位置参数</h4>
+                                <div class="code-block">
+                                    <span class="code-keyword">def</span> add(a, b):
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> a + b
+                                    <br>
+                                    result = add(<span class="code-number">1</span>, <span class="code-number">2</span>)  <span class="code-comment"># 3</span>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">关键字参数</h4>
+                                <div class="code-block">
+                                    <span class="code-keyword">def</span> describe_person(name, age):
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"{name} is {age} years old")
+                                    <br>
+                                    describe_person(age=<span class="code-number">25</span>, name=<span class="code-string">"Alice"</span>)
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">默认参数</h4>
+                                <div class="code-block">
+                                    <span class="code-keyword">def</span> greet(name, greeting=<span class="code-string">"Hello"</span>):
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(f"{greeting}, {name}!")
+                                    <br>
+                                    greet(<span class="code-string">"Bob"</span>)  <span class="code-comment"># Hello, Bob!</span>
+                                    greet(<span class="code-string">"Bob"</span>, <span class="code-string">"Hi"</span>)  <span class="code-comment"># Hi, Bob!</span>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">可变参数</h4>
+                                <div class="code-block">
+                                    <span class="code-keyword">def</span> sum_numbers(*args):
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> sum(args)
+                                    <br>
+                                    result = sum_numbers(<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>)  <span class="code-comment"># 6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">3.2 函数的返回值</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">函数可以通过return语句返回一个或多个值。</p>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># 返回单个值</span><br>
+                        <span class="code-keyword">def</span> square(x):
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> x ** <span class="code-number">2</span>
+                        <br>
+                        result = square(<span class="code-number">5</span>)  <span class="code-comment"># 25</span>
+                        <br>
+                        <span class="code-comment"># 返回多个值（元组）</span><br>
+                        <span class="code-keyword">def</span> get_name_and_age():
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-string">"Alice"</span>, <span class="code-number">25</span>
+                        <br>
+                        name, age = get_name_and_age()  <span class="code-comment"># 解包</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">3.3 局部变量与全局变量</h2>
+                
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">局部变量</h3>
+                            <p class="text-gray-700 mb-3">在函数内部定义的变量，只在函数内部有效。</p>
+                            <div class="code-block">
+                                <span class="code-keyword">def</span> test():
+                                &nbsp;&nbsp;&nbsp;&nbsp;x = <span class="code-number">10</span>  <span class="code-comment"># 局部变量</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(x)
+                                <br>
+                                test()  <span class="code-comment"># 输出: 10</span>
+                                <span class="code-comment"># print(x)  # 错误：x未定义</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">全局变量</h3>
+                            <p class="text-gray-700 mb-3">在函数外部定义的变量，在函数内部可以访问。</p>
+                            <div class="code-block">
+                                x = <span class="code-number">100</span>  <span class="code-comment"># 全局变量</span>
+                                <br>
+                                <span class="code-keyword">def</span> test():
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(x)  <span class="code-comment"># 访问全局变量</span>
+                                <br>
+                                test()  <span class="code-comment"># 输出: 100</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">在函数内部修改全局变量</h3>
+                        <div class="code-block">
+                            x = <span class="code-number">100</span>  <span class="code-comment"># 全局变量</span>
+                            <br>
+                            <span class="code-keyword">def</span> test():
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">global</span> x  <span class="code-comment"># 声明使用全局变量</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;x = <span class="code-number">200</span>  <span class="code-comment"># 修改全局变量</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(x)
+                            <br>
+                            test()  <span class="code-comment"># 输出: 200</span>
+                            <span class="code-keyword">print</span>(x)  <span class="code-comment"># 输出: 200</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">3.4 模块的导入与使用</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">模块是一个包含Python定义和语句的文件。通过导入模块，我们可以使用其他文件中定义的函数和变量。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">导入整个模块</h3>
+                            <div class="code-block">
+                                <span class="code-keyword">import</span> math
+                                <br>
+                                <span class="code-keyword">print</span>(math.pi)  <span class="code-comment"># 3.141592653589793</span>
+                                <span class="code-keyword">print</span>(math.sqrt(<span class="code-number">16</span>))  <span class="code-comment"># 4.0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">导入模块中的特定函数</h3>
+                            <div class="code-block">
+                                <span class="code-keyword">from</span> math <span class="code-keyword">import</span> pi, sqrt
+                                <br>
+                                <span class="code-keyword">print</span>(pi)  <span class="code-comment"># 3.141592653589793</span>
+                                <span class="code-keyword">print</span>(sqrt(<span class="code-number">16</span>))  <span class="code-comment"># 4.0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">导入模块并重命名</h3>
+                            <div class="code-block">
+                                <span class="code-keyword">import</span> math <span class="code-keyword">as</span> m
+                                <br>
+                                <span class="code-keyword">print</span>(m.pi)  <span class="code-comment"># 3.141592653589793</span>
+                                <span class="code-keyword">print</span>(m.sqrt(<span class="code-number">16</span>))  <span class="code-comment"># 4.0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">导入模块中的所有函数</h3>
+                            <div class="code-block">
+                                <span class="code-keyword">from</span> math <span class="code-keyword">import</span> *
+                                <br>
+                                <span class="code-keyword">print</span>(pi)  <span class="code-comment"># 3.141592653589793</span>
+                                <span class="code-keyword">print</span>(sqrt(<span class="code-number">16</span>))  <span class="code-comment"># 4.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">创建和使用自定义模块</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 假设我们有一个名为 my_module.py 的文件</span><br>
+                            <span class="code-comment"># my_module.py 内容：</span><br>
+                            <span class="code-comment"># def greet(name):</span><br>
+                            <span class="code-comment">#     return f"Hello, {name}!"</span><br>
+                            <span class="code-comment"># </span><br>
+                            <span class="code-comment"># PI = 3.14159</span>
+                            <br>
+                            <span class="code-comment"># 在另一个文件中导入并使用</span><br>
+                            <span class="code-keyword">import</span> my_module
+                            <br>
+                            <span class="code-keyword">print</span>(my_module.greet(<span class="code-string">"Alice"</span>))  <span class="code-comment"># Hello, Alice!</span>
+                            <span class="code-keyword">print</span>(my_module.PI)  <span class="code-comment"># 3.14159</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">3.5 常用内置模块</h2>
+                
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">math 模块</h3>
+                            <p class="text-gray-700 mb-3">提供数学相关的函数和常量。</p>
+                            <div class="code-block">
+                                <span class="code-keyword">import</span> math
+                                <br>
+                                <span class="code-keyword">print</span>(math.pi)  <span class="code-comment"># 圆周率</span>
+                                <span class="code-keyword">print</span>(math.sqrt(<span class="code-number">25</span>))  <span class="code-comment"># 平方根</span>
+                                <span class="code-keyword">print</span>(math.pow(<span class="code-number">2</span>, <span class="code-number">3</span>))  <span class="code-comment"># 幂运算</span>
+                                <span class="code-keyword">print</span>(math.sin(math.radians(<span class="code-number">90</span>)))  <span class="code-comment"># 正弦值</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">random 模块</h3>
+                            <p class="text-gray-700 mb-3">提供随机数生成功能。</p>
+                            <div class="code-block">
+                                <span class="code-keyword">import</span> random
+                                <br>
+                                <span class="code-keyword">print</span>(random.random())  <span class="code-comment"># 0-1之间的随机数</span>
+                                <span class="code-keyword">print</span>(random.randint(<span class="code-number">1</span>, <span class="code-number">10</span>))  <span class="code-comment"># 1-10之间的随机整数</span>
+                                <span class="code-keyword">print</span>(random.choice([<span class="code-string">"apple"</span>, <span class="code-string">"banana"</span>, <span class="code-string">"cherry"</span>]))  <span class="code-comment"># 随机选择</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">datetime 模块</h3>
+                            <p class="text-gray-700 mb-3">提供日期和时间处理功能。</p>
+                            <div class="code-block">
+                                <span class="code-keyword">import</span> datetime
+                                <br>
+                                now = datetime.datetime.now()
+                                <span class="code-keyword">print</span>(now)  <span class="code-comment"># 当前时间</span>
+                                <span class="code-keyword">print</span>(now.year, now.month, now.day)  <span class="code-comment"># 年、月、日</span>
+                                <span class="code-keyword">print</span>(now.strftime(<span class="code-string">"%Y-%m-%d %H:%M:%S"</span>))  <span class="code-comment"># 格式化时间</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">os 模块</h3>
+                            <p class="text-gray-700 mb-3">提供操作系统相关的功能。</p>
+                            <div class="code-block">
+                                <span class="code-keyword">import</span> os
+                                <br>
+                                <span class="code-keyword">print</span>(os.getcwd())  <span class="code-comment"># 当前工作目录</span>
+                                <span class="code-keyword">print</span>(os.listdir(<span class="code-string">"."</span>))  <span class="code-comment"># 列出当前目录文件</span>
+                                <span class="code-comment"># os.mkdir("new_dir")  # 创建新目录</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-dark text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-8">单元小结</h2>
+            <p class="mb-8">通过本单元的学习，你已经掌握了函数的定义、调用、参数传递和返回值，以及模块的导入和使用。函数和模块是Python编程中的重要概念，它们可以帮助我们组织代码，提高代码的复用性和可维护性。</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="unit2.html" class="bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">上一单元</a>
+                <a href="unit4.html" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">下一单元</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 bg-gray-800 text-white text-center">
+        <div class="container mx-auto max-w-4xl">
+            <p>© 2026 Python基础课程 | 设计与开发</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body>
+</html>

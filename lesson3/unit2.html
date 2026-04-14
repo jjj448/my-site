@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基础课程 - 第二单元：Python核心语法与数据结构</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#306998',
+                        secondary: '#FFD43B',
+                        accent: '#4CAF50',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .code-block {
+                background-color: #1e293b;
+                color: #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                font-family: 'Fira Code', 'Consolas', monospace;
+                overflow-x: auto;
+            }
+            .code-keyword {
+                color: #ff79c6;
+            }
+            .code-string {
+                color: #f1fa8c;
+            }
+            .code-comment {
+                color: #6272a4;
+            }
+            .code-number {
+                color: #bd93f9;
+            }
+            .step-number {
+                background-color: #306998;
+                color: white;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">Python基础课程</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition">学习资源</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark hover:text-primary focus:outline-none">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html#home" class="font-medium hover:text-primary transition py-2">首页</a>
+                    <a href="index.html#overview" class="font-medium hover:text-primary transition py-2">课程概述</a>
+                    <a href="index.html#chapters" class="font-medium hover:text-primary transition py-2">学习大纲</a>
+                    <a href="index.html#examples" class="font-medium hover:text-primary transition py-2">代码示例</a>
+                    <a href="index.html#resources" class="font-medium hover:text-primary transition py-2">学习资源</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-primary to-accent text-white py-16 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">第二单元：Python核心语法与数据结构</h1>
+            <p class="text-xl md:text-2xl mb-8">约2周学习时间，掌握Python的核心语法和常用数据结构</p>
+        </div>
+    </header>
+
+    <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">2.1 变量与数据类型</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-700">Python中的变量是用来存储数据的容器，不需要声明类型，直接赋值即可。</p>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">基本数据类型</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">数值类型</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li>整数 (int): 如 1, 2, 3</li>
+                                    <li>浮点数 (float): 如 1.5, 2.0, 3.14</li>
+                                    <li>复数 (complex): 如 1+2j</li>
+                                </ul>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">文本类型</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li>字符串 (str): 如 "Hello", 'Python'</li>
+                                </ul>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">布尔类型</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li>布尔值 (bool): True, False</li>
+                                </ul>
+                            </div>
+                            <div class="border rounded-lg p-4 card-hover">
+                                <h4 class="font-semibold mb-2 text-primary">空值</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                    <li>None: 表示空值</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">变量赋值示例</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 变量赋值</span><br>
+                            name = <span class="code-string">"Alice"</span><br>
+                            age = <span class="code-number">25</span><br>
+                            height = <span class="code-number">1.65</span><br>
+                            is_student = <span class="code-keyword">True</span><br>
+                            <br>
+                            <span class="code-comment"># 多变量赋值</span><br>
+                            a, b, c = <span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span><br>
+                            <br>
+                            <span class="code-comment"># 输出变量</span><br>
+                            <span class="code-keyword">print</span>(name, age, height, is_student)<br>
+                            <span class="code-keyword">print</span>(a, b, c)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">2.2 运算符</h2>
+                
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">算术运算符</h3>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>+: 加法</li>
+                                <li>-: 减法</li>
+                                <li>*: 乘法</li>
+                                <li>/: 除法</li>
+                                <li>//: 整除</li>
+                                <li>%: 取模</li>
+                                <li>**: 幂运算</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">比较运算符</h3>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>==: 等于</li>
+                                <li>!=: 不等于</li>
+                                <li>>: 大于</li>
+                                <li><: 小于</li>
+                                <li>>=: 大于等于</li>
+                                <li><=: 小于等于</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">逻辑运算符</h3>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>and: 与</li>
+                                <li>or: 或</li>
+                                <li>not: 非</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">赋值运算符</h3>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>=: 赋值</li>
+                                <li>+=: 加赋值</li>
+                                <li>-=: 减赋值</li>
+                                <li>*=: 乘赋值</li>
+                                <li>/=: 除赋值</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">运算符示例</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 算术运算符示例</span><br>
+                            a = <span class="code-number">10</span><br>
+                            b = <span class="code-number">3</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"a + b ="</span>, a + b)  <span class="code-comment"># 13</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"a - b ="</span>, a - b)  <span class="code-comment"># 7</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"a * b ="</span>, a * b)  <span class="code-comment"># 30</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"a / b ="</span>, a / b)  <span class="code-comment"># 3.333...</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"a // b ="</span>, a // b) <span class="code-comment"># 3</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"a % b ="</span>, a % b)  <span class="code-comment"># 1</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"a ** b ="</span>, a ** b) <span class="code-comment"># 1000</span><br>
+                            <br>
+                            <span class="code-comment"># 逻辑运算符示例</span><br>
+                            x = <span class="code-keyword">True</span><br>
+                            y = <span class="code-keyword">False</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"x and y ="</span>, x <span class="code-keyword">and</span> y) <span class="code-comment"># False</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"x or y ="</span>, x <span class="code-keyword">or</span> y)   <span class="code-comment"># True</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"not x ="</span>, <span class="code-keyword">not</span> x)        <span class="code-comment"># False</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">2.3 控制流语句</h2>
+                
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">条件语句 (if-elif-else)</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 条件语句示例</span><br>
+                            score = <span class="code-number">85</span><br>
+                            <br>
+                            <span class="code-keyword">if</span> score >= <span class="code-number">90</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"优秀"</span>)
+                            <span class="code-keyword">elif</span> score >= <span class="code-number">80</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"良好"</span>)
+                            <span class="code-keyword">elif</span> score >= <span class="code-number">60</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"及格"</span>)
+                            <span class="code-keyword">else</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-string">"不及格"</span>)
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">循环语句</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold mb-2 text-primary">for循环</h4>
+                                <div class="code-block">
+                                    <span class="code-comment"># for循环示例</span><br>
+                                    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-keyword">range</span>(<span class="code-number">5</span>):
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(i)<br>
+                                    <br>
+                                    <span class="code-comment"># 遍历列表</span><br>
+                                    fruits = [<span class="code-string">"apple"</span>, <span class="code-string">"banana"</span>, <span class="code-string">"cherry"</span>]<br>
+                                    <span class="code-keyword">for</span> fruit <span class="code-keyword">in</span> fruits:
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(fruit)
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2 text-primary">while循环</h4>
+                                <div class="code-block">
+                                    <span class="code-comment"># while循环示例</span><br>
+                                    count = <span class="code-number">0</span><br>
+                                    <span class="code-keyword">while</span> count < <span class="code-number">5</span>:
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(count)
+                                    &nbsp;&nbsp;&nbsp;&nbsp;count += <span class="code-number">1</span>
+                                    <br>
+                                    <span class="code-comment"># 无限循环</span><br>
+                                    <span class="code-comment"># while True:</span><br>
+                                    <span class="code-comment">#     print("无限循环")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">循环控制语句</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># break语句示例</span><br>
+                            <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-keyword">range</span>(<span class="code-number">10</span>):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> i == <span class="code-number">5</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">break</span>  <span class="code-comment"># 跳出循环</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(i)<br>
+                            <br>
+                            <span class="code-comment"># continue语句示例</span><br>
+                            <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-keyword">range</span>(<span class="code-number">10</span>):
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> i % <span class="code-number">2</span> == <span class="code-number">0</span>:
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">continue</span>  <span class="code-comment"># 跳过当前循环</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(i)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">2.4 数据结构</h2>
+                
+                <div class="space-y-8">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">列表 (List)</h3>
+                            <p class="text-gray-700 mb-3">有序、可变的元素集合</p>
+                            <div class="code-block">
+                                <span class="code-comment"># 列表创建与操作</span><br>
+                                fruits = [<span class="code-string">"apple"</span>, <span class="code-string">"banana"</span>, <span class="code-string">"cherry"</span>]<br>
+                                <span class="code-keyword">print</span>(fruits[<span class="code-number">0</span>])  <span class="code-comment"># 访问元素</span><br>
+                                fruits.append(<span class="code-string">"orange"</span>)  <span class="code-comment"># 添加元素</span><br>
+                                fruits.remove(<span class="code-string">"banana"</span>)  <span class="code-comment"># 删除元素</span><br>
+                                <span class="code-keyword">print</span>(fruits)  <span class="code-comment"># 输出列表</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">元组 (Tuple)</h3>
+                            <p class="text-gray-700 mb-3">有序、不可变的元素集合</p>
+                            <div class="code-block">
+                                <span class="code-comment"># 元组创建与操作</span><br>
+                                colors = (<span class="code-string">"red"</span>, <span class="code-string">"green"</span>, <span class="code-string">"blue"</span>)<br>
+                                <span class="code-keyword">print</span>(colors[<span class="code-number">1</span>])  <span class="code-comment"># 访问元素</span><br>
+                                <span class="code-comment"># colors[0] = "yellow"  # 错误：元组不可变</span><br>
+                                <span class="code-keyword">print</span>(colors)  <span class="code-comment"># 输出元组</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">字典 (Dictionary)</h3>
+                            <p class="text-gray-700 mb-3">无序的键值对集合</p>
+                            <div class="code-block">
+                                <span class="code-comment"># 字典创建与操作</span><br>
+                                person = {
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"name"</span>: <span class="code-string">"Alice"</span>,
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"age"</span>: <span class="code-number">25</span>,
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"city"</span>: <span class="code-string">"New York"</span>
+                                }<br>
+                                <span class="code-keyword">print</span>(person[<span class="code-string">"name"</span>])  <span class="code-comment"># 访问值</span><br>
+                                person[<span class="code-string">"age"</span>] = <span class="code-number">26</span>  <span class="code-comment"># 修改值</span><br>
+                                person[<span class="code-string">"country"</span>] = <span class="code-string">"USA"</span>  <span class="code-comment"># 添加键值对</span><br>
+                                <span class="code-keyword">print</span>(person)  <span class="code-comment"># 输出字典</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 card-hover">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">集合 (Set)</h3>
+                            <p class="text-gray-700 mb-3">无序、无重复元素的集合</p>
+                            <div class="code-block">
+                                <span class="code-comment"># 集合创建与操作</span><br>
+                                numbers = {<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">3</span>, <span class="code-number">4</span>}<br>
+                                <span class="code-keyword">print</span>(numbers)  <span class="code-comment"># 自动去重</span><br>
+                                numbers.add(<span class="code-number">5</span>)  <span class="code-comment"># 添加元素</span><br>
+                                numbers.remove(<span class="code-number">2</span>)  <span class="code-comment"># 删除元素</span><br>
+                                <span class="code-keyword">print</span>(numbers)  <span class="code-comment"># 输出集合</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">数据结构操作示例</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 列表推导式</span><br>
+                            squares = [<span class="code-number">x</span>**<span class="code-number">2</span> <span class="code-keyword">for</span> x <span class="code-keyword">in</span> <span class="code-keyword">range</span>(<span class="code-number">10</span>)]<br>
+                            <span class="code-keyword">print</span>(squares)  <span class="code-comment"># [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span><br>
+                            <br>
+                            <span class="code-comment"># 字典推导式</span><br>
+                            square_dict = {x: x**<span class="code-number">2</span> <span class="code-keyword">for</span> x <span class="code-keyword">in</span> <span class="code-keyword">range</span>(<span class="code-number">5</span>)}<br>
+                            <span class="code-keyword">print</span>(square_dict)  <span class="code-comment"># {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</span><br>
+                            <br>
+                            <span class="code-comment"># 集合操作</span><br>
+                            set1 = {<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>}<br>
+                            set2 = {<span class="code-number">3</span>, <span class="code-number">4</span>, <span class="code-number">5</span>}<br>
+                            <span class="code-keyword">print</span>(set1 | set2)  <span class="code-comment"># 并集 {1, 2, 3, 4, 5}</span><br>
+                            <span class="code-keyword">print</span>(set1 & set2)  <span class="code-comment"># 交集 {3}</span><br>
+                            <span class="code-keyword">print</span>(set1 - set2)  <span class="code-comment"># 差集 {1, 2}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-primary">2.5 字符串操作</h2>
+                
+                <div class="space-y-6">
+                    <p class="text-gray-700">Python中的字符串是不可变的，支持多种操作和方法。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">字符串基本操作</h3>
+                            <div class="code-block">
+                                <span class="code-comment"># 字符串创建</span><br>
+                                s1 = <span class="code-string">"Hello"</span><br>
+                                s2 = <span class="code-string">'World'</span><br>
+                                s3 = <span class="code-string">"""多行
+                                字符串"""
+                                <br>
+                                <span class="code-comment"># 字符串拼接</span><br>
+                                s = s1 + <span class="code-string">" "</span> + s2<br>
+                                <span class="code-keyword">print</span>(s)  <span class="code-comment"># Hello World</span><br>
+                                <br>
+                                <span class="code-comment"># 字符串重复</span><br>
+                                <span class="code-keyword">print</span>(<span class="code-string">"A"</span> * <span class="code-number">5</span>)  <span class="code-comment"># AAAAA</span><br>
+                                <br>
+                                <span class="code-comment"># 字符串切片</span><br>
+                                <span class="code-keyword">print</span>(s[<span class="code-number">0</span>:<span class="code-number">5</span>])  <span class="code-comment"># Hello</span><br>
+                                <span class="code-keyword">print</span>(s[<span class="code-number">6</span>:])   <span class="code-comment"># World</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">字符串方法</h3>
+                            <div class="code-block">
+                                <span class="code-comment"># 字符串方法</span><br>
+                                s = <span class="code-string">"Hello, Python!"</span><br>
+                                <span class="code-keyword">print</span>(s.lower())      <span class="code-comment"># 转换为小写</span><br>
+                                <span class="code-keyword">print</span>(s.upper())      <span class="code-comment"># 转换为大写</span><br>
+                                <span class="code-keyword">print</span>(s.strip())      <span class="code-comment"># 去除首尾空白</span><br>
+                                <span class="code-keyword">print</span>(s.split(<span class="code-string">","</span>))  <span class="code-comment"># 分割字符串</span><br>
+                                <span class="code-keyword">print</span>(s.replace(<span class="code-string">"Python"</span>, <span class="code-string">"World"</span>))  <span class="code-comment"># 替换字符串</span><br>
+                                <span class="code-keyword">print</span>(<span class="code-string">"Python"</span> <span class="code-keyword">in</span> s)  <span class="code-comment"># 检查子串</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">字符串格式化</h3>
+                        <div class="code-block">
+                            <span class="code-comment"># 字符串格式化</span><br>
+                            name = <span class="code-string">"Alice"</span><br>
+                            age = <span class="code-number">25</span><br>
+                            <br>
+                            <span class="code-comment"># 方法1: 占位符</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"My name is %s and I am %d years old."</span> % (name, age))<br>
+                            <br>
+                            <span class="code-comment"># 方法2: format方法</span><br>
+                            <span class="code-keyword">print</span>(<span class="code-string">"My name is {} and I am {} years old."</span>.format(name, age))<br>
+                            <br>
+                            <span class="code-comment"># 方法3: f-string (Python 3.6+)</span><br>
+                            <span class="code-keyword">print</span>(f<span class="code-string">"My name is {name} and I am {age} years old."</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-dark text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-8">单元小结</h2>
+            <p class="mb-8">通过本单元的学习，你已经掌握了Python的核心语法和常用数据结构，包括变量、运算符、控制流语句、列表、字典、元组和集合等。这些是Python编程的基础，也是后续学习的重要基石。</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="unit1.html" class="bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition">上一单元</a>
+                <a href="unit3.html" class="bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:text-dark transition">下一单元</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 bg-gray-800 text-white text-center">
+        <div class="container mx-auto max-w-4xl">
+            <p>© 2026 Python基础课程 | 设计与开发</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body>
+</html>
