@@ -427,6 +427,10 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.12/lib/codemirror.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.12/mode/python/python.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.12/lib/codemirror.min.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
     <script>
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -458,6 +462,128 @@
                 navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
             }
         });
+
+        // 初始化Pyodide
+        let pyodide;
+        async function initPyodide() {
+            pyodide = await loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/"
+            });
+        }
+        initPyodide();
+
+        // 为代码块添加运行功能
+        function addCodeRunFunctionality() {
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach((block, index) => {
+                const code = block.textContent;
+                const container = block.parentElement;
+                
+                // 创建代码编辑器容器
+                const editorContainer = document.createElement('div');
+                editorContainer.className = 'code-editor-container mb-4';
+                editorContainer.style.position = 'relative';
+                
+                // 创建CodeMirror编辑器
+                const editor = CodeMirror(editorContainer, {
+                    value: code,
+                    mode: 'python',
+                    lineNumbers: true,
+                    theme: 'dracula',
+                    indentUnit: 4,
+                    tabSize: 4,
+                    indentWithTabs: false
+                });
+                editor.setSize('100%', 'auto');
+                
+                // 创建控制按钮
+                const controls = document.createElement('div');
+                controls.className = 'flex justify-between items-center mt-2 mb-4';
+                
+                const runButton = document.createElement('button');
+                runButton.className = 'bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition';
+                runButton.textContent = '运行代码';
+                
+                const collapseButton = document.createElement('button');
+                collapseButton.className = 'bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition';
+                collapseButton.textContent = '折叠';
+                
+                controls.appendChild(runButton);
+                controls.appendChild(collapseButton);
+                
+                // 创建输出区域
+                const outputArea = document.createElement('div');
+                outputArea.className = 'output-area bg-gray-100 p-4 rounded mt-2';
+                outputArea.style.minHeight = '50px';
+                outputArea.style.whiteSpace = 'pre-wrap';
+                outputArea.textContent = '运行结果将显示在这里...';
+                
+                // 替换原代码块
+                block.replaceWith(editorContainer);
+                container.appendChild(controls);
+                container.appendChild(outputArea);
+                
+                // 运行代码功能
+                runButton.addEventListener('click', async () => {
+                    try {
+                        outputArea.textContent = '运行中...';
+                        const code = editor.getValue();
+                        
+                        // 重定向stdout到输出区域
+                        pyodide.stdout = (text) => {
+                            outputArea.textContent += text;
+                        };
+                        
+                        // 运行代码
+                        await pyodide.runPythonAsync(code);
+                    } catch (error) {
+                        outputArea.textContent = `错误: ${error.message}`;
+                    }
+                });
+                
+                // 折叠功能
+                collapseButton.addEventListener('click', () => {
+                    const isCollapsed = editorContainer.style.display === 'none';
+                    if (isCollapsed) {
+                        editorContainer.style.display = 'block';
+                        outputArea.style.display = 'block';
+                        collapseButton.textContent = '折叠';
+                    } else {
+                        editorContainer.style.display = 'none';
+                        outputArea.style.display = 'none';
+                        collapseButton.textContent = '展开';
+                    }
+                });
+                
+                // 添加悬浮效果
+                container.classList.add('hover:shadow-xl', 'transition-shadow', 'duration-300');
+            });
+        }
+        
+        // 页面加载完成后添加功能
+        window.addEventListener('DOMContentLoaded', addCodeRunFunctionality);
     </script>
+    <style>
+        .CodeMirror {
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+        }
+        .CodeMirror-focused {
+            outline: none !important;
+            border-color: #306998 !important;
+            box-shadow: 0 0 0 3px rgba(48, 105, 152, 0.1) !important;
+        }
+        .code-editor-container {
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .output-area {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
 </body>
 </html>
