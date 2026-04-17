@@ -482,6 +482,9 @@
                 });
                 editor.setSize('100%', 'auto');
                 
+                // 保存原始代码
+                const originalCode = code;
+                
                 // 创建控制按钮
                 const controls = document.createElement('div');
                 controls.className = 'flex justify-between items-center mt-2 mb-4';
@@ -490,12 +493,23 @@
                 runButton.className = 'bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition';
                 runButton.textContent = '运行代码';
                 
+                const resetButton = document.createElement('button');
+                resetButton.className = 'bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition';
+                resetButton.textContent = '重置代码';
+                
                 const collapseButton = document.createElement('button');
                 collapseButton.className = 'bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition';
                 collapseButton.textContent = '折叠';
                 
                 controls.appendChild(runButton);
+                controls.appendChild(resetButton);
                 controls.appendChild(collapseButton);
+                
+                // 重置代码功能
+                resetButton.addEventListener('click', () => {
+                    editor.setValue(originalCode);
+                    outputArea.textContent = '运行结果将显示在这里...';
+                });
                 
                 // 创建输出区域
                 const outputArea = document.createElement('div');
