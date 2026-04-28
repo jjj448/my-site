@@ -400,6 +400,7 @@
                 const editorContainer = document.createElement('div');
                 editorContainer.className = 'code-editor-container mb-4';
                 editorContainer.style.position = 'relative';
+                editorContainer.style.maxWidth = 'none';
                 
                 // 创建CodeMirror编辑器
                 const editor = CodeMirror(editorContainer, {
@@ -409,16 +410,21 @@
                     theme: 'dracula',
                     indentUnit: 4,
                     tabSize: 4,
-                    indentWithTabs: false
+                    indentWithTabs: false,
+                    lineWrapping: true
                 });
-                editor.setSize('100%', 'auto');
+                
+                // 根据代码行数设置编辑器高度（最小150px，最大400px）
+                const lineCount = code.split('\n').length;
+                const editorHeight = Math.max(150, Math.min(lineCount * 24 + 40, 400));
+                editor.setSize('100%', editorHeight);
                 
                 // 保存原始代码
                 const originalCode = code;
                 
                 // 创建控制按钮
                 const controls = document.createElement('div');
-                controls.className = 'flex justify-between items-center mt-2 mb-4';
+                controls.className = 'flex justify-start items-center mt-2 mb-4 space-x-2';
                 
                 const runButton = document.createElement('button');
                 runButton.className = 'bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition';
@@ -429,7 +435,7 @@
                 resetButton.textContent = '重置代码';
                 
                 const collapseButton = document.createElement('button');
-                collapseButton.className = 'bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition';
+                collapseButton.className = 'bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition ml-auto';
                 collapseButton.textContent = '折叠';
                 
                 controls.appendChild(runButton);
@@ -440,13 +446,17 @@
                 resetButton.addEventListener('click', () => {
                     editor.setValue(originalCode);
                     outputArea.textContent = '运行结果将显示在这里...';
+                    const newLineCount = originalCode.split('\n').length;
+                    const newHeight = Math.max(150, Math.min(newLineCount * 24 + 40, 400));
+                    editor.setSize('100%', newHeight);
                 });
                 
                 // 创建输出区域
                 const outputArea = document.createElement('div');
                 outputArea.className = 'output-area bg-gray-100 p-4 rounded mt-2';
-                outputArea.style.minHeight = '50px';
+                outputArea.style.minHeight = '80px';
                 outputArea.style.whiteSpace = 'pre-wrap';
+                outputArea.style.fontFamily = 'monospace';
                 outputArea.textContent = '运行结果将显示在这里...';
                 
                 // 替换原代码块
@@ -456,17 +466,37 @@
                 
                 // 运行代码功能
                 runButton.addEventListener('click', async () => {
+                    if (!pyodide) {
+                        outputArea.textContent = '错误: Python运行环境正在加载中，请稍候...';
+                        return;
+                    }
+                    
                     try {
-                        outputArea.textContent = '运行中...';
+                        outputArea.textContent = '';
                         const code = editor.getValue();
                         
-                        // 重定向stdout到输出区域
+                        // 重定向stdout和stderr
+                        let output = '';
+                        const originalStdout = pyodide.stdout;
+                        const originalStderr = pyodide.stderr;
+                        
                         pyodide.stdout = (text) => {
-                            outputArea.textContent += text;
+                            output += text;
+                            outputArea.textContent = output;
+                        };
+                        
+                        pyodide.stderr = (text) => {
+                            output += text;
+                            outputArea.textContent = output;
                         };
                         
                         // 运行代码
                         await pyodide.runPythonAsync(code);
+                        
+                        // 恢复原始输出
+                        pyodide.stdout = originalStdout;
+                        pyodide.stderr = originalStderr;
+                        
                     } catch (error) {
                         outputArea.textContent = `错误: ${error.message}`;
                     }
