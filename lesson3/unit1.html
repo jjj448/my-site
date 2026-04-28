@@ -541,33 +541,48 @@
                     }
                     
                     try {
-                        outputArea.textContent = '';
+                        outputArea.textContent = '运行中...';
                         const code = editor.getValue();
                         
-                        // 重定向stdout和stderr
-                        let output = '';
-                        const originalStdout = pyodide.stdout;
-                        const originalStderr = pyodide.stderr;
+                        // 创建包装代码来捕获输出
+                        const wrappedCode = `
+import sys
+from io import StringIO
+
+# 保存原始输出
+old_stdout = sys.stdout
+old_stderr = sys.stderr
+
+# 重定向输出
+sys.stdout = my_stdout = StringIO()
+sys.stderr = my_stderr = StringIO()
+
+try:
+    # 执行用户代码
+    ${code}
+except Exception as e:
+    import traceback
+    traceback.print_exc()
+finally:
+    # 恢复输出
+    sys.stdout = old_stdout
+    sys.stderr = old_stderr
+
+# 返回输出结果
+my_stdout.getvalue() + my_stderr.getvalue()
+                        `;
                         
-                        pyodide.stdout = (text) => {
-                            output += text;
-                            outputArea.textContent = output;
-                        };
+                        // 执行代码并获取输出
+                        const result = await pyodide.runPythonAsync(wrappedCode);
                         
-                        pyodide.stderr = (text) => {
-                            output += text;
-                            outputArea.textContent = output;
-                        };
-                        
-                        // 运行代码
-                        await pyodide.runPythonAsync(code);
-                        
-                        // 恢复原始输出
-                        pyodide.stdout = originalStdout;
-                        pyodide.stderr = originalStderr;
+                        if (result && result.trim()) {
+                            outputArea.textContent = result;
+                        } else {
+                            outputArea.textContent = '代码运行完成，无输出';
+                        }
                         
                     } catch (error) {
-                        outputArea.textContent = `错误: ${error.message}`;
+                        outputArea.textContent = `运行错误: ${error.message}`;
                     }
                 });
                 
