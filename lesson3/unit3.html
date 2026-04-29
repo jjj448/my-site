@@ -458,23 +458,24 @@
                 
                 // 创建主包装容器 - 左右布局
                 const mainWrapper = document.createElement('div');
-                mainWrapper.className = 'flex flex-col md:flex-row gap-6 mb-6';
+                mainWrapper.className = 'flex flex-col lg:flex-row gap-4 mb-6 w-full';
                 mainWrapper.style.width = '100%';
+                mainWrapper.style.minWidth = '0';
                 
                 // ============================================
                 // 左侧：示例代码显示区域
                 // ============================================
                 const examplePanel = document.createElement('div');
-                examplePanel.className = 'flex-1 bg-gray-50 rounded-lg p-4 border border-gray-200';
+                examplePanel.className = 'lg:w-2/5 bg-gray-50 rounded-lg p-3 border border-gray-200 flex-shrink-0';
                 
                 const exampleHeader = document.createElement('h4');
-                exampleHeader.className = 'text-sm font-semibold text-gray-600 mb-3 flex items-center';
+                exampleHeader.className = 'text-sm font-semibold text-gray-600 mb-2 flex items-center';
                 exampleHeader.innerHTML = '<i class="fa fa-code mr-2"></i>示例代码';
                 
                 // 简洁显示示例代码
                 const exampleCodeArea = document.createElement('pre');
                 exampleCodeArea.className = 'bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto';
-                exampleCodeArea.style.maxHeight = '300px';
+                exampleCodeArea.style.maxHeight = '500px';
                 exampleCodeArea.style.overflowY = 'auto';
                 exampleCodeArea.style.fontFamily = 'Consolas, Monaco, monospace';
                 exampleCodeArea.textContent = code;
@@ -486,13 +487,14 @@
                 // 右侧：代码编辑器与运行区域
                 // ============================================
                 const editorPanel = document.createElement('div');
-                editorPanel.className = 'flex-1 flex flex-col';
+                editorPanel.className = 'lg:w-3/5 flex flex-col min-w-0';
                 
                 // 创建代码编辑器容器
                 const editorContainer = document.createElement('div');
                 editorContainer.className = 'code-editor-container';
                 editorContainer.style.position = 'relative';
                 editorContainer.style.maxWidth = 'none';
+                editorContainer.style.width = '100%';
                 
                 // 创建CodeMirror编辑器
                 const editor = CodeMirror(editorContainer, {
@@ -506,9 +508,9 @@
                     lineWrapping: true
                 });
                 
-                // 根据代码行数设置编辑器高度（最小150px，最大350px）
+                // 根据代码行数设置编辑器高度（最小200px，最大500px）
                 const lineCount = code.split('\n').length;
-                const editorHeight = Math.max(150, Math.min(lineCount * 24 + 40, 350));
+                const editorHeight = Math.max(200, Math.min(lineCount * 22 + 40, 500));
                 editor.setSize('100%', editorHeight);
                 
                 // 保存原始代码
@@ -539,7 +541,7 @@
                     editor.setValue(originalCode);
                     outputArea.textContent = '运行结果将显示在这里...';
                     const newLineCount = originalCode.split('\n').length;
-                    const newHeight = Math.max(150, Math.min(newLineCount * 24 + 40, 350));
+                    const newHeight = Math.max(200, Math.min(newLineCount * 22 + 40, 500));
                     editor.setSize('100%', newHeight);
                 });
                 
