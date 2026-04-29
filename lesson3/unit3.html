@@ -842,6 +842,7 @@ my_stdout.getvalue() + my_stderr.getvalue()
             }
         }
         
+        // 运行代码
         async function runFloatingCode() {
             if (!pyodide) {
                 document.getElementById('floatingOutput').textContent = '错误: Python运行环境正在加载中，请稍候...';
@@ -854,6 +855,9 @@ my_stdout.getvalue() + my_stderr.getvalue()
             try {
                 outputEl.textContent = '运行中...';
                 
+                // 将用户代码的每一行缩进4个空格
+                const indentedCode = code.split('\n').map(line => '    ' + line).join('\n');
+                
                 const wrappedCode = `
 import sys
 from io import StringIO
@@ -865,7 +869,7 @@ sys.stdout = my_stdout = StringIO()
 sys.stderr = my_stderr = StringIO()
 
 try:
-    ${code}
+${indentedCode}
 except Exception as e:
     import traceback
     traceback.print_exc()
