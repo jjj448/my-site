@@ -630,24 +630,18 @@ my_stdout.getvalue() + my_stderr.getvalue()
         .code-modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            bottom: 100px;
+            right: 30px;
             z-index: 2000;
-            align-items: center;
-            justify-content: center;
         }
         .code-modal.active {
-            display: flex;
+            display: block;
         }
         .code-modal-content {
             background: white;
             border-radius: 12px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 80vh;
+            width: 450px;
+            max-height: 500px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
@@ -728,8 +722,8 @@ my_stdout.getvalue() + my_stderr.getvalue()
     </div>
     
     <!-- 代码运行模态框 -->
-    <div class="code-modal" id="codeModal" onclick="closeCodeModalOutside(event)">
-        <div class="code-modal-content" onclick="event.stopPropagation()">
+    <div class="code-modal" id="codeModal">
+        <div class="code-modal-content">
             <div class="code-modal-header">
                 <h3><i class="fa fa-code"></i> Python 代码运行器</h3>
                 <button class="code-modal-close" onclick="closeCodeModal()">&times;</button>
