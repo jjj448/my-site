@@ -471,13 +471,27 @@
                 exampleHeader.className = 'text-sm font-semibold text-gray-600 mb-3 flex items-center';
                 exampleHeader.innerHTML = '<i class="fa fa-code mr-2"></i>示例代码';
                 
+                // 清理代码文本，移除多余的格式
+                const cleanCode = block.innerHTML
+                    .replace(/<br\s*\/?>/gi, '\n')
+                    .replace(/&nbsp;/gi, ' ')
+                    .replace(/<[^>]+>/g, '')
+                    .trim();
+                
+                // 简化代码：移除连续空行
+                const simplifiedCode = cleanCode
+                    .split('\n')
+                    .map(line => line.trimEnd())
+                    .join('\n')
+                    .replace(/\n{3,}/g, '\n\n');
+                
                 // 简洁显示示例代码
                 const exampleCodeArea = document.createElement('pre');
                 exampleCodeArea.className = 'bg-gray-800 text-gray-100 p-4 rounded text-sm overflow-x-auto';
                 exampleCodeArea.style.maxHeight = '400px';
                 exampleCodeArea.style.overflowY = 'auto';
                 exampleCodeArea.style.fontFamily = 'Consolas, Monaco, monospace';
-                exampleCodeArea.textContent = code;
+                exampleCodeArea.textContent = simplifiedCode;
                 
                 examplePanel.appendChild(exampleHeader);
                 examplePanel.appendChild(exampleCodeArea);
